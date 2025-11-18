@@ -32,12 +32,25 @@ export function Navbar() {
           lg:px-8'
       >
         {/* Logo */}
-        <Link href='/' className='text-xl font-bold'>
-          Next Starter
-        </Link>
+        <Button variant='link' asChild>
+          <Link
+            href='/'
+            className='flex items-center gap-2 text-xl'
+            onClick={() => setOpen(false)}
+          >
+            <Image
+              src='/favicon.ico'
+              alt='Logo'
+              width={20}
+              height={20}
+              className='h-5 w-5'
+            />
+            Next Starter
+          </Link>
+        </Button>
 
         {/* Desktop Navigation */}
-        <div className='hidden items-center gap-6 md:flex'>
+        <div className='hidden items-center gap-4 md:flex'>
           {navLinks.map((link) => (
             <Button key={link.href} variant='ghost' asChild>
               <Link href={link.href}>{link.label}</Link>

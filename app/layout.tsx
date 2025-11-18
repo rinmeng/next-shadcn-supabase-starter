@@ -5,6 +5,7 @@ import { Navbar } from '@/components/Navbar';
 
 import './globals.css';
 import { ThemeProvider } from '@/providers/theme-provider';
+import { AuthProvider } from '@/contexts/AuthContext';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -29,10 +30,12 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
-          <Navbar />
-          <main>{children}</main>
-        </ThemeProvider>
+        <AuthProvider>
+          <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
+            <Navbar />
+            <main>{children}</main>
+          </ThemeProvider>
+        </AuthProvider>
       </body>
     </html>
   );
