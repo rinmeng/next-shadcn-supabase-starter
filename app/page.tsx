@@ -66,7 +66,7 @@ export default function Home() {
 
         <div className='mt-12 text-center'>
           <div className='flex flex-wrap justify-center gap-4'>
-            <Link href='/page1'>
+            <Link href='/features'>
               <Button size='lg'>Explore Pages</Button>
             </Link>
             <Button size='lg' variant='outline' asChild>
