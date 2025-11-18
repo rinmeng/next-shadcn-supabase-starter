@@ -24,7 +24,7 @@ import {
   Spinner,
 } from '@/components/ui';
 
-import { signInWithEmail, signUpWithEmail } from '@/hooks/use-auth';
+import { signInWithEmail, signUpWithEmail, useAuth } from '@/hooks/use-auth';
 import { useToast } from '@/hooks/use-toast';
 
 const loginSchema = z.object({

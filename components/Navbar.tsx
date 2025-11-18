@@ -11,9 +11,17 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
+  Dialog,
+  DialogTrigger,
+  DialogDescription,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
 } from '@/components/ui';
 import { ModeToggle } from './ModeToggle';
 import { Logo } from './Logo';
+import { signOut, useAuth } from '@/hooks/use-auth';
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -24,9 +32,10 @@ const navLinks = [
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
+  const { user } = useAuth();
 
   return (
-    <nav className='border-b bg-background'>
+    <nav className='fixed w-full border-b bg-background'>
       <div
         className='mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6
           lg:px-8'
@@ -41,9 +50,37 @@ export function Navbar() {
               <Link href={link.href}>{link.label}</Link>
             </Button>
           ))}
-          <Button variant='outline' asChild>
-            <Link href='/login'>Login</Link>
-          </Button>
+          {user ? (
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button variant='outline'>{user.email?.split('@')[0]}</Button>
+              </DialogTrigger>
+              <DialogContent className='sm:max-w-[425px]'>
+                <DialogHeader>
+                  <DialogTitle>Logout?</DialogTitle>
+                </DialogHeader>
+                <DialogDescription>
+                  Are you sure you want to logout from your account{' '}
+                  <strong>{user.email}</strong>?
+                </DialogDescription>
+                <DialogFooter>
+                  <Button
+                    variant='destructive'
+                    onClick={() => {
+                      signOut();
+                      setOpen(false);
+                    }}
+                  >
+                    Logout
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+          ) : (
+            <Button variant='outline' asChild>
+              <Link href='/login'>Login</Link>
+            </Button>
+          )}
           <ModeToggle />
         </div>
 
