@@ -1,7 +1,8 @@
 -- Create message table
 CREATE TABLE IF NOT EXISTS public.message (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  content TEXT NOT NULL,
+  content TEXT NOT NULL,  
+  author_name TEXT NOT NULL,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()) NOT NULL
 );
 
