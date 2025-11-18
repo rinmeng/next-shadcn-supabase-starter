@@ -22,6 +22,38 @@ import {
 import { ModeToggle } from './ModeToggle';
 import { Logo } from './Logo';
 import { signOut, useAuth } from '@/hooks/use-auth';
+import { User } from '@supabase/supabase-js';
+
+function LoginButton({ user, onLogout }: { user: User | null; onLogout: () => void }) {
+  if (user) {
+    return (
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button variant='outline'>{user.email?.split('@')[0]}</Button>
+        </DialogTrigger>
+        <DialogContent className='sm:max-w-[425px]'>
+          <DialogHeader>
+            <DialogTitle>Logout?</DialogTitle>
+          </DialogHeader>
+          <DialogDescription>
+            Are you sure you want to logout from your account{' '}
+            <strong>{user.email}</strong>?
+          </DialogDescription>
+          <DialogFooter>
+            <Button variant='destructive' onClick={onLogout}>
+              Logout
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    );
+  }
+  return (
+    <Button variant='outline' asChild>
+      <Link href='/login'>Login</Link>
+    </Button>
+  );
+}
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -50,37 +82,13 @@ export function Navbar() {
               <Link href={link.href}>{link.label}</Link>
             </Button>
           ))}
-          {user ? (
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button variant='outline'>{user.email?.split('@')[0]}</Button>
-              </DialogTrigger>
-              <DialogContent className='sm:max-w-[425px]'>
-                <DialogHeader>
-                  <DialogTitle>Logout?</DialogTitle>
-                </DialogHeader>
-                <DialogDescription>
-                  Are you sure you want to logout from your account{' '}
-                  <strong>{user.email}</strong>?
-                </DialogDescription>
-                <DialogFooter>
-                  <Button
-                    variant='destructive'
-                    onClick={() => {
-                      signOut();
-                      setOpen(false);
-                    }}
-                  >
-                    Logout
-                  </Button>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
-          ) : (
-            <Button variant='outline' asChild>
-              <Link href='/login'>Login</Link>
-            </Button>
-          )}
+          <LoginButton
+            user={user}
+            onLogout={() => {
+              signOut();
+              setOpen(false);
+            }}
+          />
           <ModeToggle />
         </div>
 
@@ -108,11 +116,13 @@ export function Navbar() {
                       </Link>
                     </Button>
                   ))}
-                  <Button variant='outline' className='w-1/2' asChild>
-                    <Link href='/login' onClick={() => setOpen(false)}>
-                      Login
-                    </Link>
-                  </Button>
+                  <LoginButton
+                    user={user}
+                    onLogout={() => {
+                      signOut();
+                      setOpen(false);
+                    }}
+                  />
                   <ModeToggle />
                 </nav>
               </div>
