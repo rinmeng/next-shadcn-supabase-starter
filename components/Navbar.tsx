@@ -2,16 +2,24 @@
 
 import { Menu } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState } from 'react';
 
-import { Button, Sheet, SheetContent, SheetTrigger } from '@/components/ui';
+import {
+  Button,
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui';
 import { ModeToggle } from './ModeToggle';
 
 const navLinks = [
   { href: '/', label: 'Home' },
-  { href: '/page1', label: 'Page 1' },
-  { href: '/page2', label: 'Page 2' },
-  { href: '/page3', label: 'Page 3' },
+  { href: '/features', label: 'Features' },
+  { href: '/tech-stack', label: 'Tech Stack' },
+  { href: '/getting-started', label: 'Getting Started' },
 ];
 
 export function Navbar() {
@@ -31,13 +39,9 @@ export function Navbar() {
         {/* Desktop Navigation */}
         <div className='hidden items-center gap-6 md:flex'>
           {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className='text-sm font-medium transition-colors hover:text-primary'
-            >
-              {link.label}
-            </Link>
+            <Button key={link.href} variant='ghost' asChild>
+              <Link href={link.href}>{link.label}</Link>
+            </Button>
           ))}
           <ModeToggle />
         </div>
@@ -46,27 +50,36 @@ export function Navbar() {
         <div className='md:hidden'>
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
-              <Button variant='ghost' size='icon'>
+              <Button variant='outline' size='icon'>
                 <Menu className='h-6 w-6' />
                 <span className='sr-only'>Toggle menu</span>
               </Button>
             </SheetTrigger>
             <SheetContent side='right' className='w-[300px] sm:w-[400px]'>
-              <div className='flex flex-col gap-6'>
-                <div className='border-b pb-4'>
-                  <h2 className='text-xl font-bold'>Next Starter</h2>
-                </div>
-                <nav className='flex flex-col gap-4'>
-                  {navLinks.map((link) => (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      onClick={() => setOpen(false)}
-                      className='rounded-lg px-4 py-2 text-sm font-medium
-                        transition-colors hover:bg-accent hover:text-accent-foreground'
-                    >
-                      {link.label}
+              <SheetHeader>
+                <SheetTitle>
+                  <Button variant='link'>
+                    <Link href='/' className='flex items-center gap-2'>
+                      <Image
+                        src='/favicon.ico'
+                        alt='Logo'
+                        width={20}
+                        height={20}
+                        className='h-5 w-5'
+                      />
+                      Next Starter
                     </Link>
+                  </Button>
+                </SheetTitle>
+              </SheetHeader>
+              <div className='flex flex-col gap-6'>
+                <nav className='flex flex-col gap-4 justify-center items-center'>
+                  {navLinks.map((link) => (
+                    <Button key={link.href} variant='ghost' className='w-1/2' asChild>
+                      <Link href={link.href} onClick={() => setOpen(false)}>
+                        {link.label}
+                      </Link>
+                    </Button>
                   ))}
                   <ModeToggle />
                 </nav>

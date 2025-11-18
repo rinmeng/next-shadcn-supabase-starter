@@ -7,12 +7,11 @@ import {
   CardTitle,
 } from '@/components/ui';
 
-export default function Page2() {
+export default function TechStack() {
   return (
     <div className='container mx-auto px-4 py-8'>
       <div className='mx-auto max-w-4xl'>
-        <h1 className='mb-8 text-4xl font-bold'>Page 2</h1>
-
+        <h1 className='mb-8 text-4xl font-bold'>Tech Stack</h1>
         <div className='space-y-6'>
           <Card>
             <CardHeader>

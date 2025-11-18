@@ -6,16 +6,15 @@ import {
   CardTitle,
 } from '@/components/ui';
 
-export default function Page1() {
+export default function Features() {
   return (
     <div className='container mx-auto px-4 py-8'>
       <div className='mx-auto max-w-4xl'>
-        <h1 className='mb-8 text-4xl font-bold'>Page 1</h1>
-
+        <h1 className='mb-8 text-4xl font-bold'>Features</h1>
         <div className='grid gap-6 md:grid-cols-2'>
           <Card>
             <CardHeader>
-              <CardTitle>Welcome to Page 1</CardTitle>
+              <CardTitle>Welcome to Features</CardTitle>
               <CardDescription>This is the first demo page</CardDescription>
             </CardHeader>
             <CardContent>

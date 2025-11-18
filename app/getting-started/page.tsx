@@ -6,13 +6,13 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui';
+import { SquareArrowOutUpRight } from 'lucide-react';
 
-export default function Page3() {
+export default function GettingStarted() {
   return (
     <div className='container mx-auto px-4 py-8'>
       <div className='mx-auto max-w-4xl'>
-        <h1 className='mb-8 text-4xl font-bold'>Page 3</h1>
-
+        <h1 className='mb-8 text-4xl font-bold'>Getting Started</h1>
         <div className='space-y-6'>
           <Card>
             <CardHeader>
@@ -25,9 +25,24 @@ export default function Page3() {
                 Next.js application with Shadcn UI and Supabase.
               </p>
               <div className='flex flex-wrap gap-4'>
-                <Button>Get Started</Button>
-                <Button variant='outline'>Learn More</Button>
-                <Button variant='secondary'>Documentation</Button>
+                <Button>
+                  <a
+                    href='https://github.com/rinmeng/next-shadcn-supabase-starter'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
+                    Get Started
+                  </a>
+                  <SquareArrowOutUpRight />
+                </Button>
+                <Button variant='outline'>
+                  Learn More
+                  <SquareArrowOutUpRight />
+                </Button>
+                <Button variant='secondary'>
+                  Documentation
+                  <SquareArrowOutUpRight />
+                </Button>
               </div>
             </CardContent>
           </Card>
