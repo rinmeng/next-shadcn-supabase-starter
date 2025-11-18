@@ -11,7 +11,7 @@ import {
 
 export default function Home() {
   return (
-    <div className='container mx-auto px-4 py-8'>
+    <div className='container mx-auto px-4 nb-padding'>
       <div className='mx-auto max-w-4xl'>
         <div className='mb-12 text-center'>
           <h1 className='mb-4 text-5xl font-bold tracking-tight'>

@@ -1,6 +1,6 @@
 'use client';
 
-import { Menu } from 'lucide-react';
+import { LogIn, LogOut, Menu } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
 
@@ -23,11 +23,14 @@ import { ModeToggle } from './ModeToggle';
 import { Logo } from './Logo';
 import { signOut, useAuth } from '@/hooks/use-auth';
 import { User } from '@supabase/supabase-js';
+import { useRouter } from 'next/navigation';
 
 function LoginButton({ user, onLogout }: { user: User | null; onLogout: () => void }) {
+  const [dialogOpen, setDialogOpen] = useState(false);
+
   if (user) {
     return (
-      <Dialog>
+      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <DialogTrigger asChild>
           <Button variant='outline'>{user.email?.split('@')[0]}</Button>
         </DialogTrigger>
@@ -40,8 +43,14 @@ function LoginButton({ user, onLogout }: { user: User | null; onLogout: () => vo
             <strong>{user.email}</strong>?
           </DialogDescription>
           <DialogFooter>
-            <Button variant='destructive' onClick={onLogout}>
-              Logout
+            <Button
+              variant='destructive'
+              onClick={() => {
+                setDialogOpen(false);
+                onLogout();
+              }}
+            >
+              Logout <LogOut />
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -50,7 +59,9 @@ function LoginButton({ user, onLogout }: { user: User | null; onLogout: () => vo
   }
   return (
     <Button variant='outline' asChild>
-      <Link href='/login'>Login</Link>
+      <Link href='/login'>
+        <LogIn /> Login
+      </Link>
     </Button>
   );
 }
@@ -60,11 +71,15 @@ const navLinks = [
   { href: '/features', label: 'Features' },
   { href: '/tech-stack', label: 'Tech Stack' },
   { href: '/getting-started', label: 'Getting Started' },
+  { href: '/admin', label: 'Admin' },
 ];
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const { user } = useAuth();
+  const router = useRouter();
+
+  const filteredNavLinks = navLinks.filter((link) => link.href !== '/admin' || user);
 
   return (
     <nav className='fixed w-full border-b bg-background'>
@@ -77,7 +92,7 @@ export function Navbar() {
 
         {/* Desktop Navigation */}
         <div className='hidden items-center gap-4 md:flex'>
-          {navLinks.map((link) => (
+          {filteredNavLinks.map((link) => (
             <Button key={link.href} variant='ghost' asChild>
               <Link href={link.href}>{link.label}</Link>
             </Button>
@@ -87,6 +102,7 @@ export function Navbar() {
             onLogout={() => {
               signOut();
               setOpen(false);
+              router.push('/login');
             }}
           />
           <ModeToggle />
@@ -109,7 +125,7 @@ export function Navbar() {
               </SheetHeader>
               <div className='flex flex-col gap-6'>
                 <nav className='flex flex-col gap-4 justify-center items-center'>
-                  {navLinks.map((link) => (
+                  {filteredNavLinks.map((link) => (
                     <Button key={link.href} variant='ghost' className='w-1/2' asChild>
                       <Link href={link.href} onClick={() => setOpen(false)}>
                         {link.label}
@@ -121,6 +137,7 @@ export function Navbar() {
                     onLogout={() => {
                       signOut();
                       setOpen(false);
+                      router.push('/login');
                     }}
                   />
                   <ModeToggle />

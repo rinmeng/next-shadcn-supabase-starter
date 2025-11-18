@@ -8,7 +8,7 @@ import {
 
 export default function Features() {
   return (
-    <div className='container mx-auto px-4 py-8'>
+    <div className='container nb-padding mx-auto px-4 nb-padding'>
       <div className='mx-auto max-w-4xl'>
         <h1 className='mb-8 text-4xl font-bold'>Features</h1>
         <div className='grid gap-6 md:grid-cols-2'>

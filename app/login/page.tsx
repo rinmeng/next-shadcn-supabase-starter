@@ -24,8 +24,9 @@ import {
   Spinner,
 } from '@/components/ui';
 
-import { signInWithEmail, signUpWithEmail, useAuth } from '@/hooks/use-auth';
+import { signInWithEmail, signUpWithEmail } from '@/hooks/use-auth';
 import { useToast } from '@/hooks/use-toast';
+import { useRouter } from 'next/navigation';
 
 const loginSchema = z.object({
   email: z.email('Please enter a valid email address'),
@@ -50,6 +51,7 @@ export default function LoginPage() {
   const [isLogin, setIsLogin] = useState(true);
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const loginForm = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -78,6 +80,7 @@ export default function LoginPage() {
         toast.error('Login failed', { description: error.message });
       } else {
         toast.success('Login successful', { description: 'You are now signed in.' });
+        router.push('/');
       }
     } catch (err) {
       toast.error('Login failed', {

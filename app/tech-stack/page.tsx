@@ -9,7 +9,7 @@ import {
 
 export default function TechStack() {
   return (
-    <div className='container mx-auto px-4 py-8'>
+    <div className='container nb-padding mx-auto px-4 nb-padding'>
       <div className='mx-auto max-w-4xl'>
         <h1 className='mb-8 text-4xl font-bold'>Tech Stack</h1>
         <div className='space-y-6'>
