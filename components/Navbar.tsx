@@ -25,7 +25,15 @@ import { signOut, useAuth } from '@/hooks/use-auth';
 import { User } from '@supabase/supabase-js';
 import { useRouter } from 'next/navigation';
 
-function LoginButton({ user, onLogout }: { user: User | null; onLogout: () => void }) {
+function LoginButton({
+  user,
+  onLogout,
+  onLogin,
+}: {
+  user: User | null;
+  onLogout: () => void;
+  onLogin?: () => void;
+}) {
   const [dialogOpen, setDialogOpen] = useState(false);
 
   if (user) {
@@ -59,7 +67,7 @@ function LoginButton({ user, onLogout }: { user: User | null; onLogout: () => vo
   }
   return (
     <Button variant='outline' asChild>
-      <Link href='/login'>
+      <Link href='/login' onClick={onLogin}>
         <LogIn /> Login
       </Link>
     </Button>
@@ -139,6 +147,7 @@ export function Navbar() {
                       setOpen(false);
                       router.push('/login');
                     }}
+                    onLogin={() => setOpen(false)}
                   />
                   <ModeToggle />
                 </nav>
