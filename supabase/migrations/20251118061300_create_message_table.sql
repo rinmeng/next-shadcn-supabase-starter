@@ -2,7 +2,6 @@
 CREATE TABLE IF NOT EXISTS public.message (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   content TEXT NOT NULL,
-  author_name VARCHAR(255),
   created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()) NOT NULL
 );
 
