@@ -27,7 +27,7 @@ export default function GettingStarted() {
               <div className='flex flex-wrap gap-4'>
                 <Button>
                   <a
-                    href='https://github.com/rinmeng/next-shadcn-supabase-starter'
+                    href='https://github.com/rinmeng/next-shadcn-supabase-starter/blob/main/README.md'
                     target='_blank'
                     rel='noopener noreferrer'
                   >

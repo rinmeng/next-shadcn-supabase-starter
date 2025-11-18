@@ -148,8 +148,11 @@ export default function LoginPage() {
       </div>
 
       {/* Right Side - Login/Signup Form */}
-      <div className='flex w-full lg:w-1/2 items-center justify-center p-6 sm:p-12'>
-        <Card className='w-full max-w-md fade-in-from-top'>
+      <div
+        className='flex w-full lg:w-1/2 items-center justify-center p-6 sm:p-12
+          fade-in-from-top'
+      >
+        <Card className='w-full max-w-md'>
           <CardHeader className='space-y-1'>
             <CardTitle className='text-2xl font-bold fade-in-from-top delay-[100ms]'>
               {isLogin ? 'Welcome back' : 'Create an account'}

@@ -65,12 +65,19 @@ export default function Home() {
           ))}
         </div>
 
-        <div className='mt-12 text-center fade-in-from-bottom delay-[300ms]'>
+        <div className='mt-12 text-center'>
           <div className='flex flex-wrap justify-center gap-4'>
             <Link href='/features'>
-              <Button size='lg'>Explore Pages</Button>
+              <Button size='lg' className='fade-in-from-bottom delay-[550ms]'>
+                Explore Pages
+              </Button>
             </Link>
-            <Button size='lg' variant='outline' asChild>
+            <Button
+              size='lg'
+              variant='outline'
+              className='fade-in-from-bottom delay-[600ms]'
+              asChild
+            >
               <a
                 href='https://github.com/rinmeng/next-shadcn-supabase-starter'
                 target='_blank'
