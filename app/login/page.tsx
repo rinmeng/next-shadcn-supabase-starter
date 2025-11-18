@@ -21,10 +21,10 @@ import {
   FormLabel,
   FormMessage,
   Input,
+  Spinner,
 } from '@/components/ui';
 
-import { useAuth } from '@/hooks/use-auth';
-import { supabase } from '@/lib/supabase';
+import { useAuth, signInWithEmail, signUpWithEmail } from '@/hooks/use-auth';
 import { useToast } from '@/hooks/use-toast';
 
 const loginSchema = z.object({
@@ -48,7 +48,8 @@ type SignupFormValues = z.infer<typeof signupSchema>;
 
 export default function LoginPage() {
   const [isLogin, setIsLogin] = useState(true);
-  const { user, loading, signOut } = useAuth();
+  const { toast } = useToast();
+  const [loading, setLoading] = useState(false);
 
   const loginForm = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -68,22 +69,47 @@ export default function LoginPage() {
   });
 
   const onLoginSubmit = async (data: LoginFormValues) => {
-    const { email, password } = data;
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
-    if (error) {
-      loginForm.setError('password', { message: error.message });
+    setLoading(true);
+    try {
+      const { email, password } = data;
+      const { error } = await signInWithEmail(email, password);
+      if (error) {
+        loginForm.setError('password', { message: error.message });
+        toast.error('Login failed', { description: error.message });
+      } else {
+        toast.success('Login successful', { description: 'You are now signed in.' });
+      }
+    } catch (err) {
+      toast.error('Login failed', {
+        description: 'Unexpected error occurred.',
+      });
+      throw err;
     }
+    setLoading(false);
   };
 
   const onSignupSubmit = async (data: SignupFormValues) => {
-    const { email, password } = data;
-    const { error } = await supabase.auth.signUp({ email, password });
-    if (error) {
-      signupForm.setError('password', { message: error.message });
-    }
-    // Optionally, redirect or show success message
-  };
+    setLoading(true);
+    try {
+      const { email, password } = data;
+      const { error } = await signUpWithEmail(email, password);
+      if (error) {
+        signupForm.setError('password', { message: error.message });
+        toast.error('Signup failed', { description: error.message });
+      } else {
+        toast.success('Signup successful', {
+          description: 'Your account has been created.',
+        });
+      }
+    } catch (err) {
+      toast.error('Signup failed', {
+        description: 'Unexpected error occurred.',
+      });
 
+      throw err;
+    }
+    setLoading(false);
+  };
   const handleToggleMode = () => {
     setIsLogin(!isLogin);
     loginForm.reset();
@@ -169,8 +195,14 @@ export default function LoginPage() {
                       Forgot password?
                     </Link>
                   </div>
-                  <Button type='submit' className='w-full'>
-                    Sign In
+                  <Button type='submit' className='w-full' disabled={loading}>
+                    {loading ? (
+                      <>
+                        <Spinner /> Signing In...
+                      </>
+                    ) : (
+                      'Sign In'
+                    )}
                   </Button>
                 </form>
               </Form>
@@ -234,8 +266,14 @@ export default function LoginPage() {
                       </FormItem>
                     )}
                   />
-                  <Button type='submit' className='w-full'>
-                    Sign Up
+                  <Button type='submit' className='w-full' disabled={loading}>
+                    {loading ? (
+                      <>
+                        <Spinner /> Signing Up...
+                      </>
+                    ) : (
+                      'Sign Up'
+                    )}
                   </Button>
                 </form>
               </Form>

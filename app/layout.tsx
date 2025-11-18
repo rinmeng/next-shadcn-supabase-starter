@@ -4,9 +4,10 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import { Navbar } from '@/components/Navbar';
 
 import './globals.css';
-import { ThemeProvider } from '@/providers/theme-provider';
+import { ThemeProvider } from '@/components/theme-provider';
 import { AuthProvider } from '@/contexts/AuthContext';
-import { ToastProvider } from '@/providers/toast-provider';
+import { ToastProvider } from '@/contexts/ToastContext';
+import { Toaster } from '@/components/ui/sonner';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -36,6 +37,7 @@ export default function RootLayout({
             <ToastProvider>
               <Navbar />
               <main>{children}</main>
+              <Toaster />
             </ToastProvider>
           </ThemeProvider>
         </AuthProvider>
