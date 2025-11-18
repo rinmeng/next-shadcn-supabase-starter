@@ -129,13 +129,17 @@ export default function LoginPage() {
     <div className='flex min-h-screen'>
       {/* Left Side - Logo */}
       <div
-        className='hidden lg:flex lg:w-1/2 bg-primary/5 items-center justify-center p-12'
+        className='hidden lg:flex lg:w-1/2 bg-primary/5 items-center justify-center p-12
+          fade-in-from-left-full'
       >
         <div className='text-center space-y-6'>
-          <Logo iconSize={40} className='mx-auto text-4xl fade-in-from-bottom' />
+          <Logo
+            iconSize={40}
+            className='mx-auto text-4xl fade-in-from-left delay-[300ms]'
+          />
           <p
-            className='text-muted-foreground text-lg max-w-md fade-in-from-bottom
-              delay-[100ms]'
+            className='text-muted-foreground text-lg max-w-md fade-in-from-left
+              delay-[400ms]'
           >
             Welcome the admin demo, here you will be able to create an account and test
             logins for admin control over the message board.
