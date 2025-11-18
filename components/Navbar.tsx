@@ -39,6 +39,7 @@ export function Navbar() {
               {link.label}
             </Link>
           ))}
+          <ModeToggle />
         </div>
 
         {/* Mobile Navigation - Sheet */}
