@@ -58,8 +58,12 @@ export function Navbar() {
             <SheetContent side='right' className='w-[300px] sm:w-[400px]'>
               <SheetHeader>
                 <SheetTitle>
-                  <Button variant='link'>
-                    <Link href='/' className='flex items-center gap-2'>
+                  <Button variant='link' asChild>
+                    <Link
+                      href='/'
+                      className='flex items-center gap-2'
+                      onClick={() => setOpen(false)}
+                    >
                       <Image
                         src='/favicon.ico'
                         alt='Logo'
