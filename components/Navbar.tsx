@@ -107,9 +107,8 @@ export function Navbar() {
           ))}
           <LoginButton
             user={user}
-            onLogout={() => {
-              signOut();
-              setOpen(false);
+            onLogout={async () => {
+              await signOut();
               router.push('/login');
             }}
           />
@@ -142,8 +141,8 @@ export function Navbar() {
                   ))}
                   <LoginButton
                     user={user}
-                    onLogout={() => {
-                      signOut();
+                    onLogout={async () => {
+                      await signOut();
                       setOpen(false);
                       router.push('/login');
                     }}
