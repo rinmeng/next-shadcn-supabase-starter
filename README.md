@@ -65,6 +65,200 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) to see your application.
 
+## 🎨 Code Formatting with Prettier
+
+This project uses Prettier with several plugins for consistent code formatting:
+
+### Configured Plugins
+
+- **[@ianvs/prettier-plugin-sort-imports](https://github.com/IanVS/prettier-plugin-sort-imports)** - Automatically sorts imports in a specific order (React imports first, then third-party modules, then local imports)
+- **[prettier-plugin-packagejson](https://github.com/matzkoh/prettier-plugin-packagejson)** - Formats and sorts `package.json` files
+- **[prettier-plugin-classnames](https://github.com/fisker/prettier-plugin-classnames)** - Formats className attributes
+
+### Key Settings
+
+The `.prettierrc` configuration includes:
+
+- **Print Width**: 90 characters
+- **Single Quotes**: Enabled for JS/TS
+- **Import Order**: React → Third-party → Components → Hooks → Utils → Relative imports
+
+Format your code:
+
+```bash
+pnpm format
+# or manually format files
+pnpm prettier --write .
+```
+
+## 🛠️ Adding Shadcn UI Components
+
+All are added by default, but you may remove them from `app/components/ui`. You can add new components to your project:
+
+```bash
+pnpm dlx shadcn@latest add button
+pnpm dlx shadcn@latest add card
+pnpm dlx shadcn@latest add dialog
+```
+
+See all [available components](https://ui.shadcn.com/docs/components).
+
+## 🎯 Code Patterns & Best Practices
+
+### Context + Hooks Pattern
+
+This starter follows a clean architecture pattern for state management:
+
+1. **Define Context**: Create a context in `contexts/` with a provider component
+
+   ```tsx
+   // contexts/AuthContext.tsx
+   export const AuthContext = createContext<AuthContextType | undefined>(undefined);
+   
+   export function AuthProvider({ children }: { children: ReactNode }) {
+     // ... provider logic
+   }
+   ```
+
+2. **Create Custom Hook**: Add a corresponding hook in `hooks/` to consume the context
+
+   ```tsx
+   // hooks/use-auth.ts
+   export function useAuth() {
+     const context = useContext(AuthContext);
+     if (context === undefined) {
+       throw new Error('useAuth must be used within an AuthProvider');
+     }
+     return context;
+   }
+   ```
+
+3. **Define Types**: Add TypeScript types in `lib/types/` for type safety
+
+   ```tsx
+   // lib/types/auth.ts
+   export interface AuthContextType {
+     // ... type definitions
+   }
+   ```
+
+4. **Barrel Exports**: Export all contexts and hooks from an index file for easy imports
+
+   ```tsx
+   // contexts/index.ts
+   export { AuthProvider } from './AuthContext';
+   // ... other exports
+   ```
+
+   ```tsx
+   // hooks/index.ts
+   export { useAuth } from './use-auth';
+   // ... other exports
+   ```
+
+### Type Centralization
+
+All TypeScript types are centralized in `lib/types/`:
+
+- Feature-specific type files (e.g., `auth.ts`, `toast.ts`)
+- Main `index.ts` exports all types for convenience
+- Import using: `import { AuthContextType, ToastContextType } from '@/lib/types'`
+
+## 🗃️ Database Setup
+
+> You must have the [Supabase CLI](https://supabase.com/docs/guides/cli) installed and configured to run migrations.
+
+Run the migrations located in the `migrations/` folder using the Supabase CLI:
+
+```bash
+npx supabase db push
+```
+
+## 🚢 Deployment
+
+### Deploy to Vercel
+
+The easiest way to deploy is using [Vercel](https://vercel.com/new):
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/rinmeng/next-shadcn-supabase-starter)
+
+1. Connect your GitHub repository
+2. Add environment variables (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`)
+3. Deploy
+
+See [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for other platforms.
+
+## 📝 Project Structure
+
+```text
+├── app/                    # Next.js App Router pages
+│   ├── layout.tsx         # Root layout
+│   ├── page.tsx           # Home page
+│   └── globals.css        # Global styles
+├── components/            # React components
+│   └── ui/               # Shadcn UI components
+├── contexts/              # React Context providers
+│   ├── AuthContext.tsx   # Authentication context
+│   └── ToastContext.tsx  # Toast notifications context
+├── hooks/                 # Custom React hooks
+│   ├── use-auth.ts       # Authentication hook
+│   └── use-toast.ts      # Toast notifications hook
+├── lib/                   # Utility functions and shared types
+│   ├── supabase.ts       # Supabase client setup
+│   ├── utils.ts          # Utility functions (cn, etc.)
+│   └── types/            # TypeScript type definitions
+│       ├── auth.ts       # Auth-related types
+│       ├── toast.ts      # Toast-related types
+│       └── index.ts      # Type exports
+├── utils/                 # Additional utilities
+│   └── supabase/         # Supabase-specific utilities
+├── public/               # Static assets
+└── next.config.ts        # Next.js configuration
+```
+
+## 🏗️ Architecture Conventions
+
+This project follows a clear separation of concerns with organized folder structures:
+
+### Context Pattern
+
+- **contexts/**: Contains React Context providers for global state management
+- Each context has its own file (e.g., `AuthContext.tsx`, `ToastContext.tsx`)
+- Contexts are wrapped in the root layout for application-wide access
+
+### Custom Hooks
+
+- **hooks/**: Custom React hooks that consume contexts or provide reusable logic
+- Hook naming convention: `use-{name}.ts` (e.g., `use-auth.ts`, `use-toast.ts`)
+- Each hook is paired with its corresponding context
+
+### Type Organization
+
+- **lib/types/**: Centralized TypeScript type definitions
+- Types are organized by feature (e.g., `auth.ts`, `toast.ts`)
+- Main export file (`index.ts`) re-exports all types for easy importing
+- Import types using: `import { AuthContextType } from '@/lib/types'`
+
+### Component Structure
+
+- **components/ui/**: Shadcn UI components with consistent patterns
+- Each component uses TypeScript for type safety
+- Components follow the compound component pattern where applicable
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- [Next.js](https://nextjs.org/) by Vercel
+- [Shadcn UI](https://ui.shadcn.com/) by [@shadcn](https://twitter.com/shadcn)
+- [Supabase](https://supabase.com/) team
+
 ## 📚 Documentation & Resources
 
 ### Next.js
@@ -99,91 +293,3 @@ Open [http://localhost:3000](http://localhost:3000) to see your application.
 
 - [Prettier Documentation](https://prettier.io/docs/en/) - Code formatting
 - [Prettier Plugins](https://prettier.io/docs/en/plugins.html) - Extend Prettier functionality
-
-## 🎨 Code Formatting with Prettier
-
-This project uses Prettier with several plugins for consistent code formatting:
-
-### Configured Plugins
-
-- **[@ianvs/prettier-plugin-sort-imports](https://github.com/IanVS/prettier-plugin-sort-imports)** - Automatically sorts imports in a specific order (React imports first, then third-party modules, then local imports)
-- **[prettier-plugin-packagejson](https://github.com/matzkoh/prettier-plugin-packagejson)** - Formats and sorts `package.json` files
-- **[prettier-plugin-classnames](https://github.com/fisker/prettier-plugin-classnames)** - Formats className attributes
-
-### Key Settings
-
-The `.prettierrc` configuration includes:
-
-- **Print Width**: 90 characters
-- **Single Quotes**: Enabled for JS/TS
-- **Import Order**: React → Third-party → Components → Hooks → Utils → Relative imports
-
-Format your code:
-
-```bash
-pnpm format
-# or manually format files
-pnpm prettier --write .
-```
-
-## 🛠️ Adding Shadcn UI Components
-
-Add new components to your project:
-
-```bash
-pnpm dlx shadcn@latest add button
-pnpm dlx shadcn@latest add card
-pnpm dlx shadcn@latest add dialog
-```
-
-See all [available components](https://ui.shadcn.com/docs/components).
-
-## 🗃️ Database Setup
-
-1. Go to your [Supabase SQL Editor](https://supabase.com/dashboard/project/_/sql)
-2. Create your tables and run migrations
-3. Set up [Row Level Security (RLS)](https://supabase.com/docs/guides/auth/row-level-security) policies
-4. Configure [authentication providers](https://supabase.com/dashboard/project/_/auth/providers)
-
-## 🚢 Deployment
-
-### Deploy to Vercel
-
-The easiest way to deploy is using [Vercel](https://vercel.com/new):
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/rinmeng/next-shadcn-supabase-starter)
-
-1. Connect your GitHub repository
-2. Add environment variables (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`)
-3. Deploy
-
-See [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for other platforms.
-
-## 📝 Project Structure
-
-```
-├── app/                    # Next.js App Router pages
-│   ├── layout.tsx         # Root layout
-│   ├── page.tsx           # Home page
-│   └── globals.css        # Global styles
-├── components/            # React components
-│   └── ui/               # Shadcn UI components
-├── lib/                   # Utility functions
-│   └── supabase/         # Supabase client setup
-├── public/               # Static assets
-└── next.config.ts        # Next.js configuration
-```
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- [Next.js](https://nextjs.org/) by Vercel
-- [Shadcn UI](https://ui.shadcn.com/) by [@shadcn](https://twitter.com/shadcn)
-- [Supabase](https://supabase.com/) team
