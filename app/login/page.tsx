@@ -1,9 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import Image from 'next/image';
 import { Logo } from '@/components/Logo';
 import Link from 'next/link';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
 import {
   Button,
   Card,
@@ -12,20 +14,68 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
   Input,
-  Label,
 } from '@/components/ui';
+
+const loginSchema = z.object({
+  email: z.string().email('Please enter a valid email address'),
+  password: z.string().min(8, 'Password must be at least 8 characters'),
+});
+
+const signupSchema = z
+  .object({
+    email: z.string().email('Please enter a valid email address'),
+    password: z.string().min(8, 'Password must be at least 8 characters'),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ['confirmPassword'],
+  });
+
+type LoginFormValues = z.infer<typeof loginSchema>;
+type SignupFormValues = z.infer<typeof signupSchema>;
 
 export default function LoginPage() {
   const [isLogin, setIsLogin] = useState(true);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const loginForm = useForm<LoginFormValues>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  });
+
+  const signupForm = useForm<SignupFormValues>({
+    resolver: zodResolver(signupSchema),
+    defaultValues: {
+      email: '',
+      password: '',
+      confirmPassword: '',
+    },
+  });
+
+  const onLoginSubmit = (data: LoginFormValues) => {
     // Add your authentication logic here
-    console.log({ email, password, isLogin });
+    console.log({ data, isLogin: true });
+  };
+
+  const onSignupSubmit = (data: SignupFormValues) => {
+    // Add your authentication logic here
+    console.log({ data, isLogin: false });
+  };
+
+  const handleToggleMode = () => {
+    setIsLogin(!isLogin);
+    loginForm.reset();
+    signupForm.reset();
   };
 
   return (
@@ -57,62 +107,133 @@ export default function LoginPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleSubmit} className='space-y-4'>
-              <div className='space-y-2'>
-                <Label htmlFor='email'>Email</Label>
-                <Input
-                  id='email'
-                  type='email'
-                  placeholder='m@example.com'
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-              </div>
-              <div className='space-y-2'>
-                <Label htmlFor='password'>Password</Label>
-                <Input
-                  id='password'
-                  type='password'
-                  placeholder='••••••••'
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-              </div>
-              {!isLogin && (
-                <div className='space-y-2'>
-                  <Label htmlFor='confirm-password'>Confirm Password</Label>
-                  <Input
-                    id='confirm-password'
-                    type='password'
-                    placeholder='••••••••'
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    required
+            {isLogin ? (
+              <Form {...loginForm}>
+                <form
+                  onSubmit={loginForm.handleSubmit(onLoginSubmit)}
+                  className='space-y-4'
+                >
+                  <FormField
+                    control={loginForm.control}
+                    name='email'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Email</FormLabel>
+                        <FormControl>
+                          <Input
+                            type='email'
+                            placeholder='m@example.com'
+                            autoComplete='email'
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
                   />
-                </div>
-              )}
-              {isLogin && (
-                <div className='flex items-center justify-end'>
-                  <Link
-                    href='/forgot-password'
-                    className='text-sm text-primary hover:underline'
-                  >
-                    Forgot password?
-                  </Link>
-                </div>
-              )}
-              <Button type='submit' className='w-full'>
-                {isLogin ? 'Sign In' : 'Sign Up'}
-              </Button>
-            </form>
+                  <FormField
+                    control={loginForm.control}
+                    name='password'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Password</FormLabel>
+                        <FormControl>
+                          <Input
+                            type='password'
+                            placeholder='Enter password'
+                            autoComplete='current-password'
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <div className='flex items-center justify-end'>
+                    <Link
+                      href='/forgot-password'
+                      className='text-sm text-primary hover:underline'
+                    >
+                      Forgot password?
+                    </Link>
+                  </div>
+                  <Button type='submit' className='w-full'>
+                    Sign In
+                  </Button>
+                </form>
+              </Form>
+            ) : (
+              <Form {...signupForm}>
+                <form
+                  onSubmit={signupForm.handleSubmit(onSignupSubmit)}
+                  className='space-y-4'
+                >
+                  <FormField
+                    control={signupForm.control}
+                    name='email'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Email</FormLabel>
+                        <FormControl>
+                          <Input
+                            type='email'
+                            placeholder='m@example.com'
+                            autoComplete='email'
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={signupForm.control}
+                    name='password'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Password</FormLabel>
+                        <FormControl>
+                          <Input
+                            type='password'
+                            placeholder='Enter password'
+                            autoComplete='new-password'
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={signupForm.control}
+                    name='confirmPassword'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Confirm Password</FormLabel>
+                        <FormControl>
+                          <Input
+                            type='password'
+                            placeholder='Confirm password'
+                            autoComplete='new-password'
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <Button type='submit' className='w-full'>
+                    Sign Up
+                  </Button>
+                </form>
+              </Form>
+            )}
           </CardContent>
           <CardFooter className='flex flex-col space-y-4'>
             <div className='text-sm text-center text-muted-foreground'>
               {isLogin ? "Don't have an account? " : 'Already have an account? '}
               <button
-                onClick={() => setIsLogin(!isLogin)}
+                onClick={handleToggleMode}
                 className='text-primary hover:underline font-medium'
               >
                 {isLogin ? 'Sign up' : 'Sign in'}
