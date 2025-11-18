@@ -24,11 +24,11 @@ import {
   Spinner,
 } from '@/components/ui';
 
-import { useAuth, signInWithEmail, signUpWithEmail } from '@/hooks/use-auth';
+import { signInWithEmail, signUpWithEmail } from '@/hooks/use-auth';
 import { useToast } from '@/hooks/use-toast';
 
 const loginSchema = z.object({
-  email: z.string().email('Please enter a valid email address'),
+  email: z.email('Please enter a valid email address'),
   password: z.string().min(8, 'Password must be at least 8 characters'),
 });
 
@@ -100,6 +100,10 @@ export default function LoginPage() {
         toast.success('Signup successful', {
           description: 'Your account has been created.',
         });
+        // Auto-fill login form and switch to login mode
+        loginForm.setValue('email', email);
+        loginForm.setValue('password', password);
+        setIsLogin(true);
       }
     } catch (err) {
       toast.error('Signup failed', {
@@ -110,6 +114,7 @@ export default function LoginPage() {
     }
     setLoading(false);
   };
+
   const handleToggleMode = () => {
     setIsLogin(!isLogin);
     loginForm.reset();
@@ -146,7 +151,7 @@ export default function LoginPage() {
           </CardHeader>
           <CardContent>
             {isLogin ? (
-              <Form {...loginForm}>
+              <Form {...loginForm} key='login-form'>
                 <form
                   onSubmit={loginForm.handleSubmit(onLoginSubmit)}
                   className='space-y-4'
@@ -207,7 +212,7 @@ export default function LoginPage() {
                 </form>
               </Form>
             ) : (
-              <Form {...signupForm}>
+              <Form {...signupForm} key='signup-form'>
                 <form
                   onSubmit={signupForm.handleSubmit(onSignupSubmit)}
                   className='space-y-4'
