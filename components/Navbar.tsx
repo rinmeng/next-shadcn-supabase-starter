@@ -2,7 +2,6 @@
 
 import { Menu } from 'lucide-react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { useState } from 'react';
 
 import {
@@ -14,6 +13,7 @@ import {
   SheetTrigger,
 } from '@/components/ui';
 import { ModeToggle } from './ModeToggle';
+import { Logo } from './Logo';
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -32,22 +32,7 @@ export function Navbar() {
           lg:px-8'
       >
         {/* Logo */}
-        <Button variant='link' asChild>
-          <Link
-            href='/'
-            className='flex items-center gap-2 text-xl'
-            onClick={() => setOpen(false)}
-          >
-            <Image
-              src='/favicon.ico'
-              alt='Logo'
-              width={20}
-              height={20}
-              className='h-5 w-5'
-            />
-            Next Starter
-          </Link>
-        </Button>
+        <Logo onClick={() => setOpen(false)} />
 
         {/* Desktop Navigation */}
         <div className='hidden items-center gap-4 md:flex'>
@@ -56,6 +41,9 @@ export function Navbar() {
               <Link href={link.href}>{link.label}</Link>
             </Button>
           ))}
+          <Button variant='outline' asChild>
+            <Link href='/login'>Login</Link>
+          </Button>
           <ModeToggle />
         </div>
 
@@ -71,22 +59,7 @@ export function Navbar() {
             <SheetContent side='right' className='w-[300px] sm:w-[400px]'>
               <SheetHeader>
                 <SheetTitle>
-                  <Button variant='link' asChild>
-                    <Link
-                      href='/'
-                      className='flex items-center gap-2'
-                      onClick={() => setOpen(false)}
-                    >
-                      <Image
-                        src='/favicon.ico'
-                        alt='Logo'
-                        width={20}
-                        height={20}
-                        className='h-5 w-5'
-                      />
-                      Next Starter
-                    </Link>
-                  </Button>
+                  <Logo onClick={() => setOpen(false)} />
                 </SheetTitle>
               </SheetHeader>
               <div className='flex flex-col gap-6'>
@@ -98,6 +71,11 @@ export function Navbar() {
                       </Link>
                     </Button>
                   ))}
+                  <Button variant='outline' className='w-1/2' asChild>
+                    <Link href='/login' onClick={() => setOpen(false)}>
+                      Login
+                    </Link>
+                  </Button>
                   <ModeToggle />
                 </nav>
               </div>
