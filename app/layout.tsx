@@ -6,6 +6,7 @@ import { Navbar } from '@/components/Navbar';
 import './globals.css';
 import { ThemeProvider } from '@/providers/theme-provider';
 import { AuthProvider } from '@/contexts/AuthContext';
+import { ToastProvider } from '@/providers/toast-provider';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -32,8 +33,10 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <AuthProvider>
           <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
-            <Navbar />
-            <main>{children}</main>
+            <ToastProvider>
+              <Navbar />
+              <main>{children}</main>
+            </ToastProvider>
           </ThemeProvider>
         </AuthProvider>
       </body>

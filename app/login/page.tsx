@@ -23,6 +23,10 @@ import {
   Input,
 } from '@/components/ui';
 
+import { useAuth } from '@/hooks/use-auth';
+import { supabase } from '@/lib/supabase';
+import { useToast } from '@/hooks/use-toast';
+
 const loginSchema = z.object({
   email: z.string().email('Please enter a valid email address'),
   password: z.string().min(8, 'Password must be at least 8 characters'),
@@ -30,7 +34,7 @@ const loginSchema = z.object({
 
 const signupSchema = z
   .object({
-    email: z.string().email('Please enter a valid email address'),
+    email: z.email('Please enter a valid email address'),
     password: z.string().min(8, 'Password must be at least 8 characters'),
     confirmPassword: z.string(),
   })
@@ -44,6 +48,7 @@ type SignupFormValues = z.infer<typeof signupSchema>;
 
 export default function LoginPage() {
   const [isLogin, setIsLogin] = useState(true);
+  const { user, loading, signOut } = useAuth();
 
   const loginForm = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -62,14 +67,21 @@ export default function LoginPage() {
     },
   });
 
-  const onLoginSubmit = (data: LoginFormValues) => {
-    // Add your authentication logic here
-    console.log({ data, isLogin: true });
+  const onLoginSubmit = async (data: LoginFormValues) => {
+    const { email, password } = data;
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error) {
+      loginForm.setError('password', { message: error.message });
+    }
   };
 
-  const onSignupSubmit = (data: SignupFormValues) => {
-    // Add your authentication logic here
-    console.log({ data, isLogin: false });
+  const onSignupSubmit = async (data: SignupFormValues) => {
+    const { email, password } = data;
+    const { error } = await supabase.auth.signUp({ email, password });
+    if (error) {
+      signupForm.setError('password', { message: error.message });
+    }
+    // Optionally, redirect or show success message
   };
 
   const handleToggleMode = () => {
