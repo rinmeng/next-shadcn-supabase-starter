@@ -12,9 +12,9 @@ export default function GettingStarted() {
   return (
     <div className='container nb-padding mx-auto px-4 nb-padding'>
       <div className='mx-auto max-w-4xl'>
-        <h1 className='mb-8 text-4xl font-bold'>Getting Started</h1>
+        <h1 className='mb-8 text-4xl font-bold fade-in-from-right'>Getting Started</h1>
         <div className='space-y-6'>
-          <Card>
+          <Card className='fade-in-from-right delay-[100ms]'>
             <CardHeader>
               <CardTitle>Get Started</CardTitle>
               <CardDescription>Ready to build something amazing?</CardDescription>
@@ -47,7 +47,7 @@ export default function GettingStarted() {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className='fade-in-from-right delay-[200ms]'>
             <CardHeader>
               <CardTitle>Responsive Design</CardTitle>
               <CardDescription>Mobile-first approach</CardDescription>

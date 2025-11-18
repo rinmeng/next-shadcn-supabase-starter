@@ -11,9 +11,9 @@ export default function TechStack() {
   return (
     <div className='container nb-padding mx-auto px-4 nb-padding'>
       <div className='mx-auto max-w-4xl'>
-        <h1 className='mb-8 text-4xl font-bold'>Tech Stack</h1>
+        <h1 className='mb-8 text-4xl font-bold fade-in-from-right'>Tech Stack</h1>
         <div className='space-y-6'>
-          <Card>
+          <Card className='fade-in-from-right delay-[100ms]'>
             <CardHeader>
               <div className='flex items-center justify-between'>
                 <CardTitle>Tech Stack</CardTitle>

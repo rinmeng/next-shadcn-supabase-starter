@@ -90,7 +90,7 @@ export function Navbar() {
   const filteredNavLinks = navLinks.filter((link) => link.href !== '/admin' || user);
 
   return (
-    <nav className='fixed w-full border-b bg-background'>
+    <nav className='fixed z-50 w-full border-b bg-background'>
       <div
         className='mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6
           lg:px-8'

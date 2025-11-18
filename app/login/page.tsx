@@ -27,6 +27,7 @@ import {
 import { signInWithEmail, signUpWithEmail } from '@/hooks/use-auth';
 import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
+import { LogIn, UserPlus } from 'lucide-react';
 
 const loginSchema = z.object({
   email: z.email('Please enter a valid email address'),
@@ -131,22 +132,25 @@ export default function LoginPage() {
         className='hidden lg:flex lg:w-1/2 bg-primary/5 items-center justify-center p-12'
       >
         <div className='text-center space-y-6'>
-          <Logo iconSize={40} className='mx-auto text-4xl' />
-          <p className='text-muted-foreground text-lg max-w-md'>
-            Welcome to our platform. Sign in to access your account and explore amazing
-            features.
+          <Logo iconSize={40} className='mx-auto text-4xl fade-in-from-bottom' />
+          <p
+            className='text-muted-foreground text-lg max-w-md fade-in-from-bottom
+              delay-[100ms]'
+          >
+            Welcome the admin demo, here you will be able to create an account and test
+            logins for admin control over the message board.
           </p>
         </div>
       </div>
 
       {/* Right Side - Login/Signup Form */}
       <div className='flex w-full lg:w-1/2 items-center justify-center p-6 sm:p-12'>
-        <Card className='w-full max-w-md'>
+        <Card className='w-full max-w-md fade-in-from-top'>
           <CardHeader className='space-y-1'>
-            <CardTitle className='text-2xl font-bold'>
+            <CardTitle className='text-2xl font-bold fade-in-from-top delay-[100ms]'>
               {isLogin ? 'Welcome back' : 'Create an account'}
             </CardTitle>
-            <CardDescription>
+            <CardDescription className='fade-in-from-top delay-[200ms]'>
               {isLogin
                 ? 'Enter your credentials to sign in to your account'
                 : 'Enter your information to create a new account'}
@@ -164,13 +168,16 @@ export default function LoginPage() {
                     name='email'
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Email</FormLabel>
+                        <FormLabel className='fade-in-from-top delay-[250ms]'>
+                          Email
+                        </FormLabel>
                         <FormControl>
                           <Input
                             type='email'
                             placeholder='m@example.com'
                             autoComplete='email'
                             {...field}
+                            className='fade-in-from-top delay-[300ms]'
                           />
                         </FormControl>
                         <FormMessage />
@@ -182,34 +189,35 @@ export default function LoginPage() {
                     name='password'
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Password</FormLabel>
+                        <FormLabel className='fade-in-from-top delay-[350ms]'>
+                          Password
+                        </FormLabel>
                         <FormControl>
                           <Input
                             type='password'
                             placeholder='Enter password'
                             autoComplete='current-password'
                             {...field}
+                            className='fade-in-from-top delay-[400ms]'
                           />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
-                  <div className='flex items-center justify-end'>
-                    <Link
-                      href='/forgot-password'
-                      className='text-sm text-primary hover:underline'
-                    >
-                      Forgot password?
-                    </Link>
-                  </div>
-                  <Button type='submit' className='w-full' disabled={loading}>
+                  <Button
+                    type='submit'
+                    className='w-full fade-in-from-top delay-[450ms]'
+                    disabled={loading}
+                  >
                     {loading ? (
                       <>
                         <Spinner /> Signing In...
                       </>
                     ) : (
-                      'Sign In'
+                      <>
+                        Sign In <LogIn />
+                      </>
                     )}
                   </Button>
                 </form>
@@ -280,14 +288,16 @@ export default function LoginPage() {
                         <Spinner /> Signing Up...
                       </>
                     ) : (
-                      'Sign Up'
+                      <>
+                        Sign Up <UserPlus />
+                      </>
                     )}
                   </Button>
                 </form>
               </Form>
             )}
           </CardContent>
-          <CardFooter className='flex flex-col space-y-4'>
+          <CardFooter className='flex flex-col space-y-4 fade-in-from-top delay-[600ms]'>
             <div className='text-sm text-center text-muted-foreground'>
               {isLogin ? "Don't have an account? " : 'Already have an account? '}
               <button

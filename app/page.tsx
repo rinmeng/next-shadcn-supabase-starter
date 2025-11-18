@@ -8,63 +8,64 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui';
+import { getDelayClass } from '@/utils/animations';
+
+const cards = [
+  {
+    title: 'Fast Development',
+    description: 'Start building immediately',
+    content:
+      'Pre-configured with all the tools you need. Beautiful UI components, authentication, and database ready to go.',
+  },
+  {
+    title: 'Type Safe',
+    description: 'Full TypeScript support',
+    content:
+      'End-to-end type safety with TypeScript, ensuring fewer bugs and better developer experience.',
+  },
+  {
+    title: 'Production Ready',
+    description: 'Deploy with confidence',
+    content:
+      'Optimized for performance and ready to deploy to Vercel, Netlify, or any platform.',
+  },
+];
 
 export default function Home() {
   return (
-    <div className='container mx-auto px-4 nb-padding'>
+    <div className='container mx-auto px-4 nb-padding fade-in-from-bottom'>
       <div className='mx-auto max-w-4xl'>
         <div className='mb-12 text-center'>
-          <h1 className='mb-4 text-5xl font-bold tracking-tight'>
+          <h1 className='mb-4 text-5xl font-bold tracking-tight fade-in-from-bottom'>
             Next.js Starter Template
           </h1>
-          <p className='mx-auto max-w-2xl text-lg text-muted-foreground'>
+          <p
+            className='mx-auto max-w-2xl text-lg text-muted-foreground fade-in-from-bottom
+              delay-[100ms]'
+          >
             A modern boilerplate with Next.js, Shadcn UI, and Supabase. Get started
             building your next project with this production-ready starter.
           </p>
         </div>
 
-        <div className='grid gap-6 md:grid-cols-3'>
-          <Card>
-            <CardHeader>
-              <CardTitle>Fast Development</CardTitle>
-              <CardDescription>Start building immediately</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p className='text-sm text-muted-foreground'>
-                Pre-configured with all the tools you need. Beautiful UI components,
-                authentication, and database ready to go.
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>Type Safe</CardTitle>
-              <CardDescription>Full TypeScript support</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p className='text-sm text-muted-foreground'>
-                End-to-end type safety with TypeScript, ensuring fewer bugs and better
-                developer experience.
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>Production Ready</CardTitle>
-              <CardDescription>Deploy with confidence</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p className='text-sm text-muted-foreground'>
-                Optimized for performance and ready to deploy to Vercel, Netlify, or any
-                platform.
-              </p>
-            </CardContent>
-          </Card>
+        <div className='grid gap-6 md:grid-cols-3 delay-[300ms]'>
+          {cards.map((card, idx) => (
+            <Card
+              key={card.title}
+              className={`fade-in-from-bottom ${getDelayClass(idx + 5)}`}
+            >
+              <CardHeader>
+                <CardTitle>{card.title}</CardTitle>
+                <CardDescription>{card.description}</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className='text-sm text-muted-foreground'>{card.content}</p>
+              </CardContent>
+            </Card>
+          ))}
         </div>
 
-        <div className='mt-12 text-center'>
+        <div className='mt-12 text-center fade-in-from-bottom delay-[300ms]'>
           <div className='flex flex-wrap justify-center gap-4'>
             <Link href='/features'>
               <Button size='lg'>Explore Pages</Button>
