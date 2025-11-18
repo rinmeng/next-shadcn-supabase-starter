@@ -17,5 +17,9 @@ CREATE POLICY "Enable read access for all users" ON public.message
 CREATE POLICY "Enable insert access for all users" ON public.message
   FOR INSERT WITH CHECK (true);
 
+-- Allow all authenticated users to modify/delete any messages
+CREATE POLICY "Enable update access for authenticated users" ON public.message
+  FOR UPDATE USING (auth.role() = 'authenticated');
+
 -- No update policy - users cannot modify messages
 -- No delete policy - users cannot delete messages
