@@ -90,7 +90,7 @@ export default function Home() {
             </Button>
           </div>
         </div>
-        <div>
+        <div className='fade-in-from-bottom delay-[700ms]'>
           <Messages />
         </div>
       </div>

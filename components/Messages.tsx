@@ -13,9 +13,9 @@ import {
   CardTitle,
   Input,
   ScrollArea,
-  Textarea,
 } from '@/components/ui';
 import { Send } from 'lucide-react';
+import { getDelayClass } from '@/utils/animations';
 
 interface Message {
   id: string;
@@ -65,7 +65,7 @@ export default function Messages() {
     }
 
     setMessage('');
-    await fetchMessages();
+    await fetchMessages(); // Refetch after sending
     setIsLoading(false);
   };
 
@@ -97,26 +97,12 @@ export default function Messages() {
   };
 
   useEffect(() => {
-    const loadMessages = async () => {
-      const { data, error } = await supabase
-        .from('message')
-        .select('*')
-        .order('created_at', { ascending: false });
-
-      if (!error && data) {
-        setMessages(data);
-      }
-    };
-
-    loadMessages();
-
-    // Refetch every 30 seconds
-    const interval = setInterval(() => {
-      loadMessages();
-    }, 30000);
-
-    return () => clearInterval(interval);
-  }, [supabase]);
+    // Fetch messages on initial load
+    (async () => {
+      await fetchMessages();
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className='mx-auto max-w-2xl'>
@@ -130,7 +116,7 @@ export default function Messages() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className='mb-6'>
+          <div className='mb-2'>
             <div className='flex gap-4 flex-col sm:flex-row'>
               <Input
                 placeholder='Your name'
@@ -159,9 +145,13 @@ export default function Messages() {
           </div>
 
           <ScrollArea className='h-[200px] pr-4'>
-            <div className='space-y-4'>
-              {messages.map((msg) => (
-                <div key={msg.id} className='flex gap-2 border rounded-xl p-2'>
+            <div className='space-y-2 pt-6'>
+              {messages.map((msg, idx) => (
+                <div
+                  key={msg.id}
+                  className={`flex gap-2 border rounded-xl p-2 fade-in-from-top
+                  ${getDelayClass(idx)}`}
+                >
                   <div className='flex items-center justify-center'>
                     <Avatar>
                       <AvatarFallback>{getInitials(msg.author_name)}</AvatarFallback>
