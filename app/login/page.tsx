@@ -139,10 +139,7 @@ export default function LoginPage() {
           fade-in-from-left-full'
       >
         <div className='text-center space-y-6'>
-          <Logo
-            iconSize={40}
-            className='mx-auto text-4xl fade-in-from-left delay-[300ms]'
-          />
+          <Logo iconSize={40} className='text-4xl fade-in-from-left delay-[300ms]' />
           <p
             className='text-muted-foreground text-lg max-w-md fade-in-from-left
               delay-[400ms]'
