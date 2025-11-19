@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import {
@@ -12,8 +12,9 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { CheckCircle2, LogIn, XCircle } from 'lucide-react';
+import { Spinner } from '@/components/ui/spinner';
 
-export default function AuthResultPage() {
+function AuthResultContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [countdown, setCountdown] = useState(5);
@@ -99,5 +100,19 @@ export default function AuthResultPage() {
         </CardFooter>
       </Card>
     </div>
+  );
+}
+
+export default function AuthResultPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className='flex min-h-screen items-center justify-center'>
+          <Spinner className='h-8 w-8' />
+        </div>
+      }
+    >
+      <AuthResultContent />
+    </Suspense>
   );
 }
