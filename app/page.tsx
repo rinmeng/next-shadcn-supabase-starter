@@ -46,7 +46,8 @@ export default function Home() {
               delay-[100ms]'
           >
             A modern boilerplate with Next.js, Shadcn UI, and Supabase. Get started
-            building your next project with this production-ready starter.
+            building your next project with this production-ready starter, beautifully
+            designed by rin.
           </p>
         </div>
 
