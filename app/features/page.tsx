@@ -144,39 +144,6 @@ export default function Features() {
             );
           })}
         </div>
-
-        {/* Bottom CTA */}
-        <div
-          className={`mt-12 text-center fade-in-from-right ${getDelayClass(
-            features.length + 4 )}`}
-        >
-          <Card className='bg-linear-to-br'>
-            <CardContent className='pt-6'>
-              <Sparkles className='h-12 w-12 mx-auto mb-4 text-primary' />
-              <h3 className='text-2xl font-bold mb-2'>Ready to Build?</h3>
-              <p className='text-muted-foreground mb-4'>
-                Start creating amazing applications with this powerful starter template
-              </p>
-              <div
-                className='flex flex-wrap justify-center gap-3 text-sm font-medium
-                  text-muted-foreground'
-              >
-                <span className='flex items-center gap-1'>
-                  <CheckCircle2 className='h-4 w-4 text-green-500' />
-                  Production Ready
-                </span>
-                <span className='flex items-center gap-1'>
-                  <CheckCircle2 className='h-4 w-4 text-green-500' />
-                  Type Safe
-                </span>
-                <span className='flex items-center gap-1'>
-                  <CheckCircle2 className='h-4 w-4 text-green-500' />
-                  Fully Responsive
-                </span>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
       </div>
     </div>
   );
