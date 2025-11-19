@@ -27,6 +27,7 @@ import { signInWithEmail, signUpWithEmail } from '@/hooks/use-auth';
 import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
 import { LogIn, UserPlus } from 'lucide-react';
+import { DURATIONS } from '@/lib';
 
 const loginSchema = z.object({
   email: z.email('Please enter a valid email address'),
@@ -76,7 +77,12 @@ export default function LoginPage() {
       const { email, password } = data;
       const { error } = await signInWithEmail(email, password);
       if (error) {
-        loginForm.setError('password', { message: error.message });
+        // Show email-specific errors on email field, others on password field
+        if (error.message.toLowerCase().includes('email not confirmed')) {
+          loginForm.setError('email', { message: error.message });
+        } else {
+          loginForm.setError('password', { message: error.message });
+        }
         toast.error('Login failed', { description: error.message });
       } else {
         toast.success('Login successful', { description: 'You are now signed in.' });
@@ -102,8 +108,9 @@ export default function LoginPage() {
       } else {
         toast.success('Check your email!', {
           description: 'We sent you a verification link. Please check your inbox.',
+          duration: DURATIONS.TOAST_LONG,
         });
-        // Auto-fill login form and switch to login mode
+        // Auto-fill login form and switch to login mode after email sent
         loginForm.setValue('email', email);
         loginForm.setValue('password', password);
         setIsLogin(true);
