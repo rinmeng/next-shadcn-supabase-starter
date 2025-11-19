@@ -1,59 +1,127 @@
 import {
-  Badge,
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
 } from '@/components/ui';
+import { getDelayClass } from '@/utils/animations';
+import { get } from 'http';
+import Image from 'next/image';
+
+const techStack = [
+  {
+    name: 'Next.js',
+    description: 'React framework for production',
+    icon: '/icons/nextjs.svg',
+    category: 'Framework',
+  },
+  {
+    name: 'React',
+    description: 'UI library for building interfaces',
+    icon: '/icons/react.svg',
+    category: 'Library',
+  },
+  {
+    name: 'TypeScript',
+    description: 'Typed JavaScript at scale',
+    icon: '/icons/typescript.svg',
+    category: 'Language',
+  },
+  {
+    name: 'Tailwind CSS',
+    description: 'Utility-first CSS framework',
+    icon: '/icons/tailwind.svg',
+    category: 'Styling',
+  },
+  {
+    name: 'Shadcn UI',
+    description: 'Re-usable component library',
+    icon: '/icons/shadcn.svg',
+    category: 'Components',
+  },
+  {
+    name: 'Supabase',
+    description: 'Open source Firebase alternative',
+    icon: '/icons/supabase.svg',
+    category: 'Backend',
+  },
+  {
+    name: 'PostgreSQL',
+    description: 'Advanced open source database',
+    icon: '/icons/postgres.svg',
+    category: 'Database',
+  },
+  {
+    name: 'ESLint',
+    description: 'Pluggable linting utility',
+    icon: '/icons/eslint.svg',
+    category: 'Code Quality',
+  },
+  {
+    name: 'Prettier',
+    description: 'Opinionated code formatter',
+    icon: '/icons/prettier.svg',
+    category: 'Code Quality',
+  },
+];
 
 export default function TechStack() {
   return (
-    <div className='container nb-padding mx-auto px-4 nb-padding'>
-      <div className='mx-auto max-w-4xl'>
-        <h1 className='mb-8 text-4xl font-bold fade-in-from-right'>Tech Stack</h1>
-        <div className='space-y-6'>
-          <Card className='fade-in-from-right delay-[100ms]'>
-            <CardHeader>
-              <div className='flex items-center justify-between'>
-                <CardTitle>Tech Stack</CardTitle>
-                <Badge>Modern</Badge>
-              </div>
-              <CardDescription>Technologies used in this boilerplate</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className='grid gap-4 sm:grid-cols-2'>
-                <div className='space-y-2'>
-                  <h3 className='font-semibold'>Frontend</h3>
-                  <div className='flex flex-wrap gap-2'>
-                    <Badge variant='secondary'>Next.js 15</Badge>
-                    <Badge variant='secondary'>React 19</Badge>
-                    <Badge variant='secondary'>TypeScript</Badge>
+    <div className='container nb-padding mx-auto px-4'>
+      <div className='mx-auto max-w-6xl'>
+        {/* Header */}
+        <div className='mb-12 text-center fade-in-from-top'>
+          <h1 className='mb-4 text-5xl font-bold'>Tech Stack</h1>
+          <p className='text-xl text-muted-foreground max-w-2xl mx-auto'>
+            Built with modern, battle-tested technologies for optimal performance and
+            developer experience
+          </p>
+        </div>
+
+        {/* Tech Stack Grid */}
+        <div className='grid gap-6 md:grid-cols-2 lg:grid-cols-3'>
+          {techStack.map((tech, index) => (
+            <Card
+              key={tech.name}
+              className={`fade-in-from-bottom ${getDelayClass(index + 1)} group`}
+            >
+              <CardHeader>
+                <div className='flex items-center gap-4'>
+                  <div className='relative h-12 w-12 shrink-0'>
+                    <Image
+                      src={tech.icon}
+                      alt={`${tech.name} logo`}
+                      width={48}
+                      height={48}
+                      className='object-contain dark:invert not-dark:invert-0'
+                    />
+                  </div>
+                  <div className='flex-1 min-w-0'>
+                    <CardTitle className='text-lg'>{tech.name}</CardTitle>
+                    <CardDescription className='text-xs'>{tech.category}</CardDescription>
                   </div>
                 </div>
-                <div className='space-y-2'>
-                  <h3 className='font-semibold'>UI & Styling</h3>
-                  <div className='flex flex-wrap gap-2'>
-                    <Badge variant='secondary'>Shadcn UI</Badge>
-                    <Badge variant='secondary'>Tailwind CSS</Badge>
-                    <Badge variant='secondary'>Radix UI</Badge>
-                  </div>
-                </div>
-                <div className='space-y-2'>
-                  <h3 className='font-semibold'>Backend</h3>
-                  <div className='flex flex-wrap gap-2'>
-                    <Badge variant='secondary'>Supabase</Badge>
-                    <Badge variant='secondary'>PostgreSQL</Badge>
-                  </div>
-                </div>
-                <div className='space-y-2'>
-                  <h3 className='font-semibold'>Code Quality</h3>
-                  <div className='flex flex-wrap gap-2'>
-                    <Badge variant='secondary'>Prettier</Badge>
-                    <Badge variant='secondary'>ESLint</Badge>
-                  </div>
-                </div>
-              </div>
+              </CardHeader>
+              <CardContent>
+                <p className='text-sm text-muted-foreground'>{tech.description}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        {/* Bottom Info */}
+        <div
+          className={`mt-12 text-center fade-in-from-bottom
+            ${getDelayClass(techStack.length + 1)}`}
+        >
+          <Card>
+            <CardContent className='pt-6'>
+              <h3 className='text-2xl font-bold mb-2'>Modern & Scalable</h3>
+              <p className='text-muted-foreground'>
+                Every technology in this stack is chosen for production readiness, active
+                maintenance, and excellent developer experience
+              </p>
             </CardContent>
           </Card>
         </div>
