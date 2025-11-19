@@ -146,7 +146,10 @@ export default function Features() {
         </div>
 
         {/* Bottom CTA */}
-        <div className='mt-12 text-center fade-in-from-bottom delay-[500ms]'>
+        <div
+          className={`mt-12 text-center fade-in-from-right ${getDelayClass(
+            features.length + 4 )}`}
+        >
           <Card className='bg-linear-to-br'>
             <CardContent className='pt-6'>
               <Sparkles className='h-12 w-12 mx-auto mb-4 text-primary' />
