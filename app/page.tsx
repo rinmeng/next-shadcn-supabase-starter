@@ -36,7 +36,7 @@ const cards = [
 export default function Home() {
   return (
     <div className='container mx-auto px-4 nb-padding fade-in-from-bottom'>
-      <div className='mx-auto max-w-4xl gap-6 flex flex-col'>
+      <div className='mx-auto max-w-6xl gap-6 flex flex-col'>
         <div className='text-center'>
           <h1 className='mb-4 text-5xl font-bold tracking-tight fade-in-from-bottom'>
             Next.js Starter Template
@@ -90,7 +90,9 @@ export default function Home() {
             </Button>
           </div>
         </div>
-        <Messages />
+        <div>
+          <Messages />
+        </div>
       </div>
     </div>
   );

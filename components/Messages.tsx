@@ -119,7 +119,7 @@ export default function Messages() {
   }, [supabase]);
 
   return (
-    <div className='mx-auto max-w-6xl'>
+    <div className='mx-auto max-w-2xl'>
       <Card>
         <CardHeader>
           <CardTitle>See what others are saying!</CardTitle>
@@ -131,28 +131,30 @@ export default function Messages() {
         </CardHeader>
         <CardContent>
           <div className='mb-6'>
-            <div className='flex gap-4'>
+            <div className='flex gap-4 flex-col sm:flex-row'>
               <Input
                 placeholder='Your name'
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className='w-1/6'
+                className='w-full sm:w-2/6'
                 disabled={isLoading}
               />
-              <Input
-                placeholder='Your message'
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                className='flex-2'
-                disabled={isLoading}
-              />
-              <Button
-                onClick={handleSend}
-                disabled={isLoading || !name.trim() || !message.trim()}
-                size='icon'
-              >
-                <Send className='h-4 w-4' />
-              </Button>
+              <div className='flex w-full gap-2 flex-col sm:flex-row'>
+                <Input
+                  placeholder='Your message'
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  disabled={isLoading}
+                />
+                <Button
+                  onClick={handleSend}
+                  disabled={isLoading || !name.trim() || !message.trim()}
+                  size='icon'
+                  className='w-full sm:w-10'
+                >
+                  <Send className='h-4 w-4' />
+                </Button>
+              </div>
             </div>
           </div>
 
