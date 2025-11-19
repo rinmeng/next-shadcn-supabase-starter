@@ -9,7 +9,7 @@ import {
   CardTitle,
 } from '@/components/ui';
 import { getDelayClass } from '@/utils/animations';
-import { SquareArrowOutUpRight } from 'lucide-react';
+import { ArrowRight, SquareArrowOutUpRight } from 'lucide-react';
 
 const cards = [
   {
@@ -70,7 +70,7 @@ export default function Home() {
           <div className='flex flex-wrap justify-center gap-4'>
             <Link href='/features'>
               <Button size='lg' className='fade-in-from-bottom delay-[550ms]'>
-                Explore Pages
+                Check out the features <ArrowRight />
               </Button>
             </Link>
             <Button
