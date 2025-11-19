@@ -56,7 +56,9 @@ function LogoutButton({ user, onClose }: { user: User; onClose?: () => void }) {
   return (
     <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
       <DialogTrigger asChild>
-        <Button variant='outline'>{user.email?.split('@')[0]}</Button>
+        <Button variant='outline'>
+          {user.email?.split('@')[0]} <LogOut />
+        </Button>
       </DialogTrigger>
       <DialogContent className='sm:max-w-[425px]'>
         <DialogHeader>

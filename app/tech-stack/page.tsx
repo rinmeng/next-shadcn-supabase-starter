@@ -27,7 +27,7 @@ export default function TechStack() {
                   <h3 className='font-semibold'>Frontend</h3>
                   <div className='flex flex-wrap gap-2'>
                     <Badge variant='secondary'>Next.js 15</Badge>
-                    <Badge variant='secondary'>React</Badge>
+                    <Badge variant='secondary'>React 19</Badge>
                     <Badge variant='secondary'>TypeScript</Badge>
                   </div>
                 </div>

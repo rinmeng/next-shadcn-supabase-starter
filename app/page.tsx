@@ -9,6 +9,7 @@ import {
   CardTitle,
 } from '@/components/ui';
 import { getDelayClass } from '@/utils/animations';
+import { SquareArrowOutUpRight } from 'lucide-react';
 
 const cards = [
   {
@@ -83,7 +84,7 @@ export default function Home() {
                 target='_blank'
                 rel='noopener noreferrer'
               >
-                View on GitHub
+                View on GitHub <SquareArrowOutUpRight />
               </a>
             </Button>
           </div>

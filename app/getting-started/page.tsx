@@ -35,14 +35,6 @@ export default function GettingStarted() {
                   </a>
                   <SquareArrowOutUpRight />
                 </Button>
-                <Button variant='outline'>
-                  Learn More
-                  <SquareArrowOutUpRight />
-                </Button>
-                <Button variant='secondary'>
-                  Documentation
-                  <SquareArrowOutUpRight />
-                </Button>
               </div>
             </CardContent>
           </Card>
