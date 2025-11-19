@@ -17,6 +17,16 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(url)
   }
 
+  // Protect /auth/result success page (but allow error display)
+  if (!user && pathname === '/auth/result') {
+    const url = request.nextUrl.clone()
+    const success = url.searchParams.get('success')
+    if (success === 'true') {
+      url.pathname = '/login'
+      return NextResponse.redirect(url)
+    }
+  }
+
   // Check if logged-in user is trying to access auth routes (like login page)
   if (user && authRoutes.some(route => pathname.startsWith(route))) {
     const url = request.nextUrl.clone()

@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { Logo } from '@/components/Logo';
-import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -101,8 +100,8 @@ export default function LoginPage() {
         signupForm.setError('password', { message: error.message });
         toast.error('Signup failed', { description: error.message });
       } else {
-        toast.success('Signup successful', {
-          description: 'Your account has been created.',
+        toast.success('Check your email!', {
+          description: 'We sent you a verification link. Please check your inbox.',
         });
         // Auto-fill login form and switch to login mode
         loginForm.setValue('email', email);
