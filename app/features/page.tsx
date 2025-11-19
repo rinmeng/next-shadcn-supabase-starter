@@ -6,72 +6,170 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui';
+import { getDelayClass } from '@/utils/animations';
+import {
+  Shield,
+  Lock,
+  Mail,
+  Route,
+  Zap,
+  Code2,
+  Layers,
+  Paintbrush,
+  Box,
+  Server,
+  FileCode,
+  Workflow,
+  Rocket,
+  CheckCircle2,
+  AlertCircle,
+  Sparkles,
+} from 'lucide-react';
+
+const features = [
+  {
+    icon: Shield,
+    title: 'Authentication & Security',
+    description: 'Enterprise-grade security built-in',
+    color: 'text-blue-500',
+    bgColor: 'bg-blue-500/10',
+    items: [
+      { icon: Lock, label: 'Supabase Auth' },
+      { icon: Mail, label: 'Email Verification' },
+      { icon: Route, label: 'Protected Routes' },
+      { icon: Workflow, label: 'Auth Callbacks' },
+      { icon: Shield, label: 'Middleware Proxy' },
+    ],
+  },
+  {
+    icon: Code2,
+    title: 'Modern Tech Stack',
+    description: 'Cutting-edge technologies for peak performance',
+    color: 'text-purple-500',
+    bgColor: 'bg-purple-500/10',
+    items: [
+      { icon: Zap, label: 'Next.js 15' },
+      { icon: Route, label: 'App Router' },
+      { icon: Code2, label: 'TypeScript' },
+      { icon: Paintbrush, label: 'Tailwind CSS' },
+      { icon: Box, label: 'Shadcn UI' },
+    ],
+  },
+  {
+    icon: Layers,
+    title: 'Scalable Architecture',
+    description: 'Future-proof project structure',
+    color: 'text-green-500',
+    bgColor: 'bg-green-500/10',
+    items: [
+      { icon: Server, label: 'API Versioning' },
+      { icon: FileCode, label: 'Server Components' },
+      { icon: Box, label: 'Client Components' },
+      { icon: Route, label: 'Route Handlers' },
+      { icon: Layers, label: 'Modular Design' },
+    ],
+  },
+  {
+    icon: Rocket,
+    title: 'Developer Experience',
+    description: 'Tools that boost productivity',
+    color: 'text-orange-500',
+    bgColor: 'bg-orange-500/10',
+    items: [
+      { icon: Zap, label: 'Hot Reload' },
+      { icon: CheckCircle2, label: 'ESLint' },
+      { icon: Sparkles, label: 'Prettier' },
+      { icon: AlertCircle, label: 'Type Safety' },
+      { icon: CheckCircle2, label: 'Form Validation' },
+    ],
+  },
+];
 
 export default function Features() {
   return (
-    <div className='container nb-padding mx-auto px-4 nb-padding'>
-      <div className='mx-auto max-w-4xl'>
-        <h1 className='mb-8 text-4xl font-bold fade-in-from-right'>Features</h1>
+    <div className='container nb-padding mx-auto px-4'>
+      <div className='mx-auto max-w-6xl'>
+        {/* Header */}
+        <div className='mb-12 text-center'>
+          <h1 className='mb-4 text-5xl font-bold fade-in-from-right'>Features</h1>
+          <p
+            className='text-xl text-muted-foreground max-w-2xl mx-auto fade-in-from-right
+              delay-[100ms]'
+          >
+            A comprehensive starter template with everything you need to build modern web
+            applications
+          </p>
+        </div>
+
+        {/* Feature Cards Grid */}
         <div className='grid gap-6 md:grid-cols-2'>
-          <Card className='fade-in-from-right delay-[100ms]'>
-            <CardHeader>
-              <CardTitle>Authentication & Security</CardTitle>
-              <CardDescription>Production-ready auth system</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className='flex flex-wrap gap-2'>
-                <Badge variant='default'>Supabase Auth</Badge>
-                <Badge variant='secondary'>Email Verification</Badge>
-                <Badge variant='secondary'>Protected Routes</Badge>
-                <Badge variant='secondary'>Auth Callbacks</Badge>
-                <Badge variant='secondary'>Route Proxy</Badge>
-              </div>
-            </CardContent>
-          </Card>
+          {features.map((feature, idx) => {
+            const Icon = feature.icon;
+            return (
+              <Card
+                key={feature.title}
+                className={`fade-in-from-right ${getDelayClass(idx + 2)}`}
+              >
+                <CardHeader>
+                  <div className='flex items-start gap-4'>
+                    <div className={`p-3 rounded-lg ${feature.bgColor}`}>
+                      <Icon className={`h-6 w-6 ${feature.color}`} />
+                    </div>
+                    <div className='flex-1'>
+                      <CardTitle className='text-xl'>{feature.title}</CardTitle>
+                      <CardDescription className='mt-1'>
+                        {feature.description}
+                      </CardDescription>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className='flex flex-wrap gap-2'>
+                    {feature.items.map((item) => {
+                      const ItemIcon = item.icon;
+                      return (
+                        <Badge
+                          variant='outline'
+                          key={item.label}
+                          className='flex items-center gap-2 rounded-md'
+                        >
+                          <ItemIcon className='text-muted-foreground' />
+                          <span className='text-sm'>{item.label}</span>
+                        </Badge>
+                      );
+                    })}
+                  </div>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </div>
 
-          <Card className='fade-in-from-right delay-[200ms]'>
-            <CardHeader>
-              <CardTitle>Modern Stack</CardTitle>
-              <CardDescription>Built with cutting-edge technologies</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className='flex flex-wrap gap-2'>
-                <Badge variant='default'>Next.js 15</Badge>
-                <Badge variant='secondary'>App Router</Badge>
-                <Badge variant='secondary'>TypeScript</Badge>
-                <Badge variant='secondary'>Tailwind CSS</Badge>
-                <Badge variant='secondary'>Shadcn UI</Badge>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className='fade-in-from-right delay-[300ms]'>
-            <CardHeader>
-              <CardTitle>Architecture</CardTitle>
-              <CardDescription>Scalable project structure</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className='flex flex-wrap gap-2'>
-                <Badge variant='default'>API Versioning</Badge>
-                <Badge variant='secondary'>Server Components</Badge>
-                <Badge variant='secondary'>Client Components</Badge>
-                <Badge variant='secondary'>Route Handlers</Badge>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className='fade-in-from-right delay-[400ms]'>
-            <CardHeader>
-              <CardTitle>Developer Experience</CardTitle>
-              <CardDescription>Optimized for productivity</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className='flex flex-wrap gap-2'>
-                <Badge variant='default'>Hot Reload</Badge>
-                <Badge variant='secondary'>ESLint</Badge>
-                <Badge variant='secondary'>Prettier</Badge>
-                <Badge variant='secondary'>Type Safety</Badge>
-                <Badge variant='secondary'>Form Validation</Badge>
+        {/* Bottom CTA */}
+        <div className='mt-12 text-center fade-in-from-bottom delay-[500ms]'>
+          <Card className='bg-linear-to-br'>
+            <CardContent className='pt-6'>
+              <Sparkles className='h-12 w-12 mx-auto mb-4 text-primary' />
+              <h3 className='text-2xl font-bold mb-2'>Ready to Build?</h3>
+              <p className='text-muted-foreground mb-4'>
+                Start creating amazing applications with this powerful starter template
+              </p>
+              <div
+                className='flex flex-wrap justify-center gap-3 text-sm font-medium
+                  text-muted-foreground'
+              >
+                <span className='flex items-center gap-1'>
+                  <CheckCircle2 className='h-4 w-4 text-green-500' />
+                  Production Ready
+                </span>
+                <span className='flex items-center gap-1'>
+                  <CheckCircle2 className='h-4 w-4 text-green-500' />
+                  Type Safe
+                </span>
+                <span className='flex items-center gap-1'>
+                  <CheckCircle2 className='h-4 w-4 text-green-500' />
+                  Fully Responsive
+                </span>
               </div>
             </CardContent>
           </Card>
