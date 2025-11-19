@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui';
-import Messages from '@/components/Messages';
+// import Messages from '@/components/Messages';
 import { getDelayClass } from '@/utils/animations';
 import { ArrowRight, SquareArrowOutUpRight } from 'lucide-react';
 
@@ -90,9 +90,10 @@ export default function Home() {
             </Button>
           </div>
         </div>
-        <div className='fade-in-from-bottom delay-[700ms]'>
+        {/* if you want a quick test for data base stuff, make sure you uncomment this and check the component.*/}
+        {/* <div className='fade-in-from-bottom delay-[700ms]'>
           <Messages />
-        </div>
+        </div> */}
       </div>
     </div>
   );
