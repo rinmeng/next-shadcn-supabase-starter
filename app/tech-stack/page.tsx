@@ -123,22 +123,6 @@ export default function TechStack() {
             </Card>
           ))}
         </div>
-
-        {/* Bottom Info */}
-        <div
-          className={`mt-12 text-center fade-in-from-bottom
-            ${getDelayClass(techStack.length + 1)}`}
-        >
-          <Card>
-            <CardContent className='pt-6'>
-              <h3 className='text-2xl font-bold mb-2'>Modern & Scalable</h3>
-              <p className='text-muted-foreground'>
-                Every technology in this stack is chosen for production readiness, active
-                maintenance, and excellent developer experience
-              </p>
-            </CardContent>
-          </Card>
-        </div>
       </div>
     </div>
   );
