@@ -6,8 +6,8 @@ import {
   CardTitle,
 } from '@/components/ui';
 import { getDelayClass } from '@/utils/animations';
-import { get } from 'http';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const techStack = [
   {
@@ -15,54 +15,63 @@ const techStack = [
     description: 'React framework for production',
     icon: '/icons/nextjs.svg',
     category: 'Framework',
+    url: 'https://nextjs.org',
   },
   {
     name: 'React',
     description: 'UI library for building interfaces',
     icon: '/icons/react.svg',
     category: 'Library',
+    url: 'https://react.dev',
   },
   {
     name: 'TypeScript',
     description: 'Typed JavaScript at scale',
     icon: '/icons/typescript.svg',
     category: 'Language',
+    url: 'https://www.typescriptlang.org',
   },
   {
     name: 'Tailwind CSS',
     description: 'Utility-first CSS framework',
     icon: '/icons/tailwind.svg',
     category: 'Styling',
+    url: 'https://tailwindcss.com',
   },
   {
     name: 'Shadcn UI',
     description: 'Re-usable component library',
     icon: '/icons/shadcn.svg',
     category: 'Components',
+    url: 'https://ui.shadcn.com',
   },
   {
     name: 'Supabase',
     description: 'Open source Firebase alternative',
     icon: '/icons/supabase.svg',
     category: 'Backend',
+    url: 'https://supabase.com',
   },
   {
     name: 'PostgreSQL',
     description: 'Advanced open source database',
     icon: '/icons/postgres.svg',
     category: 'Database',
+    url: 'https://www.postgresql.org',
   },
   {
     name: 'ESLint',
     description: 'Pluggable linting utility',
     icon: '/icons/eslint.svg',
     category: 'Code Quality',
+    url: 'https://eslint.org',
   },
   {
     name: 'Prettier',
     description: 'Opinionated code formatter',
     icon: '/icons/prettier.svg',
     category: 'Code Quality',
+    url: 'https://prettier.io',
   },
 ];
 
@@ -84,10 +93,15 @@ export default function TechStack() {
           {techStack.map((tech, index) => (
             <Card
               key={tech.name}
-              className={`fade-in-from-bottom ${getDelayClass(index + 1)} group`}
+              className={`fade-in-from-bottom ${getDelayClass(index + 1)}`}
             >
               <CardHeader>
-                <div className='flex items-center gap-4'>
+                <a
+                  className='flex items-center gap-4'
+                  href={tech.url}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                >
                   <div className='relative h-12 w-12 shrink-0'>
                     <Image
                       src={tech.icon}
@@ -101,7 +115,7 @@ export default function TechStack() {
                     <CardTitle className='text-lg'>{tech.name}</CardTitle>
                     <CardDescription className='text-xs'>{tech.category}</CardDescription>
                   </div>
-                </div>
+                </a>
               </CardHeader>
               <CardContent>
                 <p className='text-sm text-muted-foreground'>{tech.description}</p>
