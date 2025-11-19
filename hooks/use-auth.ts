@@ -21,6 +21,9 @@ export async function signInWithEmail(email: string, password: string) {
 export async function signUpWithEmail(email: string, password: string) {
   const redirectUrl = process.env.NEXT_PUBLIC_SITE_URL || window.location.origin;
   
+  console.log('🔍 Redirect URL:', redirectUrl); // Debug log
+  console.log('🔍 NEXT_PUBLIC_SITE_URL:', process.env.NEXT_PUBLIC_SITE_URL); // Debug log
+  
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
