@@ -19,11 +19,13 @@ export async function signInWithEmail(email: string, password: string) {
 }
 
 export async function signUpWithEmail(email: string, password: string) {
+  const redirectUrl = process.env.NEXT_PUBLIC_SITE_URL || window.location.origin;
+  
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
     options: {
-      emailRedirectTo: `${window.location.origin}/api/v1/auth/callback`,
+      emailRedirectTo: `${redirectUrl}/api/v1/auth/callback`,
     },
   });
   return { data, error };
