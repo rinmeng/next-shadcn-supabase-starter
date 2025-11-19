@@ -8,6 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui';
+import Messages from '@/components/Messages';
 import { getDelayClass } from '@/utils/animations';
 import { ArrowRight, SquareArrowOutUpRight } from 'lucide-react';
 
@@ -35,8 +36,8 @@ const cards = [
 export default function Home() {
   return (
     <div className='container mx-auto px-4 nb-padding fade-in-from-bottom'>
-      <div className='mx-auto max-w-4xl'>
-        <div className='mb-12 text-center'>
+      <div className='mx-auto max-w-4xl gap-6 flex flex-col'>
+        <div className='text-center'>
           <h1 className='mb-4 text-5xl font-bold tracking-tight fade-in-from-bottom'>
             Next.js Starter Template
           </h1>
@@ -66,7 +67,7 @@ export default function Home() {
           ))}
         </div>
 
-        <div className='mt-12 text-center'>
+        <div className='text-center'>
           <div className='flex flex-wrap justify-center gap-4'>
             <Link href='/features'>
               <Button size='lg' className='fade-in-from-bottom delay-[550ms]'>
@@ -89,6 +90,7 @@ export default function Home() {
             </Button>
           </div>
         </div>
+        <Messages />
       </div>
     </div>
   );
