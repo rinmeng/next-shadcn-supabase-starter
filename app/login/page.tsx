@@ -83,7 +83,7 @@ export default function LoginPage() {
         } else {
           loginForm.setError('password', { message: error.message });
         }
-        toast.error('Login failed', { description: error.message });
+        toast.error('Login failed', { description: 'Please check your credentials and try again.' });
       } else {
         toast.success('Login successful', { description: 'You are now signed in.' });
         router.push('/');
@@ -103,8 +103,8 @@ export default function LoginPage() {
       const { email, password } = data;
       const { error } = await signUpWithEmail(email, password);
       if (error) {
-        signupForm.setError('password', { message: error.message });
-        toast.error('Signup failed', { description: error.message });
+        signupForm.setError('password', { message: 'Please check your information and try again.' });
+        toast.error('Signup failed', { description: 'Please check your information and try again.' });
       } else {
         toast.success('Check your email!', {
           description: 'We sent you a verification link. Please check your inbox.',

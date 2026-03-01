@@ -10,7 +10,7 @@ export async function updateSession(request: NextRequest) {
   });
 
   if (!supabaseUrl || !supabaseKey) {
-    console.error('Missing Supabase environment variables');
+    console.warn('Missing Supabase environment variables');
     return { user: null, supabaseResponse };
   }
 
