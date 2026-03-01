@@ -1,16 +1,16 @@
-import { createClient } from '@/utils/supabase/client'
+import { createClient } from '@/utils/supabase/client';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const supabasePublishableKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY;
 
 if (!supabaseUrl) {
   console.warn(
     '⚠️  NEXT_PUBLIC_SUPABASE_URL is not set. Please add it to your .env.local file to enable Supabase features.'
   );
 }
-if (!supabaseAnonKey) {
+if (!supabasePublishableKey) {
   console.warn(
-    '⚠️  NEXT_PUBLIC_SUPABASE_ANON_KEY is not set. Please add it to your .env.local file to enable Supabase features.'
+    '⚠️  NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY is not set. Please add it to your .env.local file to enable Supabase features.'
   );
 }
 

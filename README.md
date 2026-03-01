@@ -48,7 +48,7 @@ Add your Supabase credentials to `.env.local`:
 
 ```env
 NEXT_PUBLIC_SUPABASE_URL=your-project-url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY=your-anon-key
 ```
 
 You can find these in your [Supabase project settings](https://supabase.com/dashboard/project/_/settings/api).
@@ -183,7 +183,7 @@ The easiest way to deploy is using [Vercel](https://vercel.com/new):
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/rinmeng/next-shadcn-supabase-starter)
 
 1. Connect your GitHub repository
-2. Add environment variables (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`)
+2. Add environment variables (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY`)
 3. Deploy
 
 See [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for other platforms.
