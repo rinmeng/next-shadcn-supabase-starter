@@ -34,7 +34,7 @@ export function Logo({ className, iconSize = 20, showText = true, onClick }: Log
 
       <Infinity size={iconSize} className={cn('text-muted-foreground', className)} />
       <Button variant='link' className={cn('p-0 m-0', className)}>
-        <div className={cn('flex gap-2', className)}>
+        <div className='flex gap-2 items-center'>
           <Link href='https://web8th.com'>
             <Image
               src='/icons/8th_svg.svg'
