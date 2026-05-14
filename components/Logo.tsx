@@ -37,6 +37,7 @@ export function Logo({ className, iconSize = 20, showText = true, onClick }: Log
         <div className='flex gap-2 items-center'>
           <Link href='https://web8th.com'>
             <Image
+              className='not-dark:invert-100'
               src='/icons/8th_svg.svg'
               alt='Logo'
               width={Math.round(iconSize * 1.5)}
@@ -53,6 +54,7 @@ export function Logo({ className, iconSize = 20, showText = true, onClick }: Log
             <Image
               src='/rmlogov2.png'
               alt='Logo'
+              className='not-dark:invert-100'
               width={Math.round(iconSize * 1.5)}
               height={Math.round(iconSize * 1.5 * (1079 / 1905))}
               style={{ width: iconSize * 1.5, height: 'auto' }}
