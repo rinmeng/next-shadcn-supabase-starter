@@ -24,6 +24,7 @@ import { Logo } from './Logo';
 import { signOut, useAuth } from '@/hooks/use-auth';
 import { User } from '@supabase/supabase-js';
 import { useRouter } from 'next/navigation';
+import { AUTH_ENABLED } from '@/config/auth';
 import { useToast } from '@/hooks/use-toast';
 
 function LoginButton({ onClose }: { onClose?: () => void }) {
@@ -88,7 +89,9 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
   const { user } = useAuth();
 
-  const filteredNavLinks = navLinks.filter((link) => link.href !== '/admin' || user);
+  const filteredNavLinks = AUTH_ENABLED
+    ? navLinks.filter((link) => link.href !== '/admin' || user)
+    : navLinks.filter((link) => link.href !== '/admin');
 
   return (
     <nav className='fixed z-50 w-full border-b bg-background'>
@@ -106,7 +109,7 @@ export function Navbar() {
               <Link href={link.href}>{link.label}</Link>
             </Button>
           ))}
-          {user ? <LogoutButton user={user} /> : <LoginButton />}
+          {AUTH_ENABLED && (user ? <LogoutButton user={user} /> : <LoginButton />)}
           <ModeToggle />
         </div>
 
@@ -134,11 +137,11 @@ export function Navbar() {
                       </Link>
                     </Button>
                   ))}
-                  {user ? (
+                  {AUTH_ENABLED && (user ? (
                     <LogoutButton user={user} onClose={() => setOpen(false)} />
                   ) : (
                     <LoginButton onClose={() => setOpen(false)} />
-                  )}
+                  ))}
                   <ModeToggle />
                 </nav>
               </div>

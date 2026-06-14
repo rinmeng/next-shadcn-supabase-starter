@@ -18,20 +18,6 @@ export async function signInWithEmail(email: string, password: string) {
   return { data, error };
 }
 
-export async function signUpWithEmail(email: string, password: string) {
-  const redirectUrl = window.location.origin;
-  
-  
-  const { data, error } = await supabase.auth.signUp({
-    email,
-    password,
-    options: {
-      emailRedirectTo: `${redirectUrl}/api/v1/auth/callback`,
-    },
-  });
-  return { data, error };
-}
-
 export async function signOut() {
   const { error } = await supabase.auth.signOut();
   return { error };
