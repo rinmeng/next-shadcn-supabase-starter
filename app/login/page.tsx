@@ -54,7 +54,9 @@ export default function LoginPage() {
         } else {
           form.setError('password', { message: error.message });
         }
-        toast.error('Login failed', { description: 'Please check your credentials and try again.' });
+        toast.error('Login failed', {
+          description: 'Please check your credentials and try again.',
+        });
       } else {
         toast.success('Login successful', { description: 'You are now signed in.' });
         router.push('/admin');
@@ -75,7 +77,10 @@ export default function LoginPage() {
       >
         <div className='text-center space-y-6'>
           <Logo iconSize={40} className='text-4xl fade-in-from-left delay-[300ms]' />
-          <p className='text-muted-foreground text-lg max-w-md fade-in-from-left delay-[400ms]'>
+          <p
+            className='text-muted-foreground text-lg max-w-md fade-in-from-left
+              delay-[400ms]'
+          >
             Sign in to access the admin panel.
           </p>
         </div>
@@ -103,7 +108,9 @@ export default function LoginPage() {
                   name='email'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className='fade-in-from-top delay-[250ms]'>Email</FormLabel>
+                      <FormLabel className='fade-in-from-top delay-[250ms]'>
+                        Email
+                      </FormLabel>
                       <FormControl>
                         <Input
                           type='email'
@@ -122,7 +129,9 @@ export default function LoginPage() {
                   name='password'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className='fade-in-from-top delay-[350ms]'>Password</FormLabel>
+                      <FormLabel className='fade-in-from-top delay-[350ms]'>
+                        Password
+                      </FormLabel>
                       <FormControl>
                         <Input
                           type='password'

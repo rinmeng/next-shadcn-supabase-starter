@@ -1,31 +1,31 @@
-import { type NextRequest, NextResponse } from 'next/server'
-import { updateSession } from '@/utils/supabase/proxy'
-import { AUTH_ENABLED } from '@/config/auth'
+import { type NextRequest, NextResponse } from 'next/server';
+import { updateSession } from '@/utils/supabase/proxy';
+import { AUTH_ENABLED } from '@/config/auth';
 
 export async function proxy(request: NextRequest) {
   if (!AUTH_ENABLED) {
-    return NextResponse.next()
+    return NextResponse.next();
   }
 
-  const { user, supabaseResponse } = await updateSession(request)
-  const pathname = request.nextUrl.pathname
+  const { user, supabaseResponse } = await updateSession(request);
+  const pathname = request.nextUrl.pathname;
 
-  const protectedRoutes = ['/admin']
-  const authRoutes = ['/login']
+  const protectedRoutes = ['/admin'];
+  const authRoutes = ['/login'];
 
-  if (!user && protectedRoutes.some(route => pathname.startsWith(route))) {
-    const url = request.nextUrl.clone()
-    url.pathname = '/login'
-    return NextResponse.redirect(url)
+  if (!user && protectedRoutes.some((route) => pathname.startsWith(route))) {
+    const url = request.nextUrl.clone();
+    url.pathname = '/login';
+    return NextResponse.redirect(url);
   }
 
-  if (user && authRoutes.some(route => pathname.startsWith(route))) {
-    const url = request.nextUrl.clone()
-    url.pathname = '/admin'
-    return NextResponse.redirect(url)
+  if (user && authRoutes.some((route) => pathname.startsWith(route))) {
+    const url = request.nextUrl.clone();
+    url.pathname = '/admin';
+    return NextResponse.redirect(url);
   }
 
-  return supabaseResponse
+  return supabaseResponse;
 }
 
 export const config = {
@@ -39,4 +39,4 @@ export const config = {
      */
     '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
   ],
-}
+};

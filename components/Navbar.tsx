@@ -137,11 +137,12 @@ export function Navbar() {
                       </Link>
                     </Button>
                   ))}
-                  {AUTH_ENABLED && (user ? (
-                    <LogoutButton user={user} onClose={() => setOpen(false)} />
-                  ) : (
-                    <LoginButton onClose={() => setOpen(false)} />
-                  ))}
+                  {AUTH_ENABLED &&
+                    (user ? (
+                      <LogoutButton user={user} onClose={() => setOpen(false)} />
+                    ) : (
+                      <LoginButton onClose={() => setOpen(false)} />
+                    ))}
                   <ModeToggle />
                 </nav>
               </div>

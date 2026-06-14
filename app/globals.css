@@ -23,7 +23,8 @@
   }
 
   .fade-in-from-left-full {
-    @apply animate-in slide-in-from-left-translate-full fade-in ease-out fill-mode-both duration-300;
+    @apply animate-in slide-in-from-left-translate-full fade-in ease-out fill-mode-both
+      duration-300;
   }
 
   .fade-in-from-top {
