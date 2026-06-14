@@ -8,6 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui';
+import { Text } from '@/components/Text';
 // import Messages from '@/components/Messages';
 import { getDelayClass } from '@/utils/animations';
 import { ArrowRight, SquareArrowOutUpRight } from 'lucide-react';
@@ -38,17 +39,18 @@ export default function Home() {
     <div className='container mx-auto px-4 nb-padding fade-in-from-bottom'>
       <div className='mx-auto max-w-6xl gap-6 flex flex-col'>
         <div className='text-center'>
-          <h1 className='mb-4 text-5xl font-bold tracking-tight fade-in-from-bottom'>
+          <Text variant='hd-xxl' className='mb-4 tracking-tight fade-in-from-bottom'>
             Next.js Starter Template
-          </h1>
-          <p
-            className='mx-auto max-w-2xl text-lg text-muted-foreground fade-in-from-bottom
-              delay-[100ms]'
+          </Text>
+          <Text
+            variant='muted'
+            size='md'
+            className='mx-auto max-w-2xl fade-in-from-bottom delay-[100ms]'
           >
             A modern boilerplate with Next.js, Shadcn UI, and Supabase. Get started
             building your next project with this production-ready starter, beautifully
             designed by rin.
-          </p>
+          </Text>
         </div>
 
         <div className='grid gap-6 md:grid-cols-3 delay-[300ms]'>
@@ -62,7 +64,9 @@ export default function Home() {
                 <CardDescription>{card.description}</CardDescription>
               </CardHeader>
               <CardContent>
-                <p className='text-sm text-muted-foreground'>{card.content}</p>
+                <Text variant='muted' size='sm'>
+                  {card.content}
+                </Text>
               </CardContent>
             </Card>
           ))}
